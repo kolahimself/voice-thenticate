@@ -1,3 +1,10 @@
+"""
+This script implements a user interface for voice authentication using SpeechBrain.
+It allows users to enroll their voice and then verify their identity with their voice.
+
+**Author:** James Ojoawo (github.com/kolahimself)
+"""
+
 import streamlit as st
 from streamlit_mic_recorder import mic_recorder
 from speechbrain.inference.speaker import SpeakerRecognition
@@ -92,13 +99,13 @@ def verify(audio_a: bytes, audio_b: bytes) -> None:
         savedir="pretrained_models/spkrec-ecapa-voxceleb"
     )
 
-    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a, \
-     tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
-    temp_file_a.write(speaker_audio_a["bytes"])
-    temp_file_b.write(speaker_audio_b["bytes"])
+    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a:
+        temp_file_a.write(speaker_audio_a["bytes"])
+
+    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
+        temp_file_b.write(speaker_audio_b["bytes"])
 
     score, prediction = verification.verify_files(temp_file_a.name, temp_file_b.name)
-
 
     # Convert tensor prediction to boolean for conditional logic
     prediction_bool = prediction.item() == 1  # True if prediction is [True]
