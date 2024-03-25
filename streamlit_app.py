@@ -32,6 +32,13 @@ def voice_thenticate():
             # Section for recording initial user (owner so to say)'s voice
             st.subheader('Set Up Your Voice ID')
 
+            speaker_audio_a = mic_recorder(
+                        start_prompt="Start recording",
+                        stop_prompt="Stop recording",
+                        just_once=False,
+                        use_container_width=False,
+                        format="wav")
+
             # # Call an instance of the audio recorder
             # speaker_a_audio = st_audiorec()
             
