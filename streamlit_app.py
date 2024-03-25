@@ -1,4 +1,4 @@
-import tempfile
+import io
 import streamlit as st
 from st_audiorec import st_audiorec
 
@@ -40,11 +40,9 @@ def voice_thenticate():
                         col_playback, col_space = st.columns([0.58,0.32])
                         with col_playback:
                                     st.audio(speaker_a_audio, format='audio/wav')
-                                    
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
-                        temp_file.write(speaker_a_audio)
-                        temp_file_path = temp_file.name
-                        st.success(f"Audio saved to {temp_file_path}")
+
+            # Create a BytesIO object
+            audio_buffer_a = io.BytesIO(speaker_a_audio)
 
             # Section for verifying user's voice
             st.subheader('Verify Your Voice')
