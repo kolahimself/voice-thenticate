@@ -93,27 +93,27 @@ def verify(audio_a, audio_b) -> None:
         audio_a: Bytes representing the enrolled user's voice sample.
         audio_b: Bytes representing the user's voice for verification.
     """
-
-    verification = SpeakerRecognition.from_hparams(
+    if audio_a is not None or audio_b is not None:
+        verification = SpeakerRecognition.from_hparams(
         source="speechbrain/spkrec-ecapa-voxceleb",
         savedir="pretrained_models/spkrec-ecapa-voxceleb"
-    )
+        )
+        
+        with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a:
+            temp_file_a.write(audio_a)
+            
+        with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
+            temp_file_b.write(audio_b)
 
-    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a:
-        temp_file_a.write(audio_a)
+        score, prediction = verification.verify_files(temp_file_a.name, temp_file_b.name)
 
-    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
-        temp_file_b.write(audio_b)
-
-    score, prediction = verification.verify_files(temp_file_a.name, temp_file_b.name)
-
-    # Convert tensor prediction to boolean for conditional logic
-    prediction_bool = prediction.item() == 1  # True if prediction is [True]
-
-    if prediction_bool:
-        st.success("Voice verified successfully!")
-    else:
-        st.error("Voice verification failed. Please try again.")
+        # Convert tensor prediction to boolean for conditional logic
+        prediction_bool = prediction.item() == 1  # True if prediction is [True]
+        
+        if prediction_bool:
+            st.success("Voice verified successfully!")
+        else:
+            st.error("Voice verification failed. Please try again.")
 
 
 if __name__ == "__main__":
