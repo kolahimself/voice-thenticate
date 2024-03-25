@@ -100,10 +100,10 @@ def verify(audio_a: bytes, audio_b: bytes) -> None:
     )
 
     with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a:
-        temp_file_a.write(speaker_audio_a["bytes"])
+        temp_file_a.write(audio_a)
 
     with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
-        temp_file_b.write(speaker_audio_b["bytes"])
+        temp_file_b.write(audio_b)
 
     score, prediction = verification.verify_files(temp_file_a.name, temp_file_b.name)
 
