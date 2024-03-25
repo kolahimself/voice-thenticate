@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_mic_recorder import mic_recorder
+from speechbrain.inference.speaker import SpeakerRecognition
 
 
 # **App Configuration**
@@ -67,35 +68,37 @@ def voice_thenticate():
     st.subheader("Verify Your Voice")
 
     # "Verify" button with hover text
-    if st.button(
+    st.button(
         label="Verify",
         key="C",
         help="Match your voice sample to your enrolled voice ID",
         on_click=verify(speaker_audio_a["bytes"], speaker_audio_b["bytes"]),
         type="primary",
-    ):
-        # Handle successful button click (replace with verification logic)
-        st.success("Voice verified successfully!")  # Placeholder for verification result
+    )
 
 
 def verify(audio_a: bytes, audio_b: bytes) -> None:
     """
-    Performs speaker recognition between the two input audio recordings.
-
-    This function should be implemented to use SpeechBrain for voice verification
-    between the enrolled audio (`audio_a`) and the verification audio (`audio_b`).
-    It currently just prints a placeholder message.
+    Performs speaker verification between the two input audio recordings.
 
     Args:
         audio_a: Bytes representing the enrolled user's voice sample.
         audio_b: Bytes representing the user's voice for verification.
-
-    Returns:
-        None
     """
 
-    print("Performing speaker verification...")  # Placeholder message
-    # Implement SpeechBrain logic for verification here
+    verification = SpeakerRecognition.from_hparams(
+        source="speechbrain/spkrec-ecapa-voxceleb",
+        savedir="pretrained_models/spkrec-ecapa-voxceleb"
+    )
+    score, prediction = verification.verify_files(audio_a, audio_b)
+
+    # Convert tensor prediction to boolean for conditional logic
+    prediction_bool = prediction.item() == 1  # True if prediction is [True]
+
+    if prediction_bool:
+        st.success("Voice verified successfully!")
+    else:
+        st.error("Voice verification failed. Please try again.")
 
 
 if __name__ == "__main__":
