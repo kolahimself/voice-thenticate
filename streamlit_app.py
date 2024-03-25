@@ -70,7 +70,7 @@ def voice_thenticate():
             st.subheader('Verify Your Voice')
 
             # `Verify` button
-            st.Button(
+            st.button(
                         label="Verify",
                         key='C',
                         help='Match your voice sample to your enrolled voice ID',
