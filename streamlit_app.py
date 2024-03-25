@@ -7,12 +7,12 @@ st.set_page_config(page_title="streamlit_audio_recorder")
 # Design move app further up and remove top padding
 st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''',
             unsafe_allow_html=True)
-# Design change st.Audio to fixed height of 45 pixels
-st.markdown('''<style>.stAudio {height: 45px;}</style>''',
-            unsafe_allow_html=True)
-# Design change hyperlink href link color
-st.markdown('''<style>.css-v37k9u a {color: #ff4c4b;}</style>''',
-            unsafe_allow_html=True)  # darkmode
+# # Design change st.Audio to fixed height of 45 pixels
+# st.markdown('''<style>.stAudio {height: 45px;}</style>''',
+#             unsafe_allow_html=True)
+# # Design change hyperlink href link color
+# st.markdown('''<style>.css-v37k9u a {color: #ff4c4b;}</style>''',
+#             unsafe_allow_html=True)  # darkmode
 # st.markdown('''<style>.css-nlntq9 a {color: #ff4c4b;}</style>''',
 #             unsafe_allow_html=True)  # lightmode
 
@@ -39,21 +39,18 @@ def voice_thenticate():
                         use_container_width=False,
                         format="wav",
                         key='A')
-
-            # # Call an instance of the audio recorder
-            # speaker_a_audio = st_audiorec()
             
-            # if speaker_a_audio is not None:
-            #             # display audio data as received on the Python side
-            #             col_playback, col_space = st.columns([0.58,0.32])
-            #             with col_playback:
-            #                         st.audio(speaker_a_audio, format='audio/wav')
+            if speaker_a_audio[0] is not None:
+                        # display audio data as received on the Python side
+                        col_playback, col_space = st.columns([0.58,0.32])
+                        with col_playback:
+                                    st.audio(speaker_a_audio[0], format='audio/wav')
 
             # # Create a BytesIO object
             # audio_buffer_a = io.BytesIO(speaker_a_audio)
 
-            # Section for verifying user's voice
-            st.subheader('Verify Your Voice')
+            # Section recording user's voice for verification
+            st.subheader('Unlock with Your Voice')
 
             speaker_audio_b = mic_recorder(
                         start_prompt="Start recording",
@@ -62,6 +59,31 @@ def voice_thenticate():
                         use_container_width=False,
                         format="wav",
                         key='B')
+            
+            if speaker_b_audio[0] is not None:
+                        # display audio data as received on the Python side
+                        col_playback, col_space = st.columns([0.58,0.32])
+                        with col_playback:
+                                    st.audio(speaker_b_audio[0], format='audio/wav')
+
+            # Section for verifying user's voice with SpeechBrain
+            st.subheader('Verify Your Voice')
+
+            # `Verify` button
+            st.Button(
+                        label="Verify",
+                        key='C',
+                        help='Match your voice sample to your enrolled voice ID',
+                        on_click=verify(speaker_a_audio[0], speaker_b_audio[0]),
+                        type="primary",
+            )
+
+
+def verify(audio_a, audio_b):
+            """
+            Callable function that performs speaker recognition between the two input audio recordings.
+            """
+            print(1)
 
 
 if __name__ == '__main__':
