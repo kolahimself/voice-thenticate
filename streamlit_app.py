@@ -1,5 +1,5 @@
 import streamlit as st
-from st_audiorec import st_audiorec
+# from st_audiorec import st_audiorec
 
 # DESIGN implement changes to the standard streamlit UI/UX
 # --> optional, not relevant for the functionality of the component!
