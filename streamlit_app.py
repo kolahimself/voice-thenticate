@@ -21,12 +21,14 @@ def voice_thenticate():
             """          
             # Display the title and info
             st.title("voice-thenticate")
-            st.markdown('A practical application of speaker verification using SpeechBrain'
+            st.markdown('A practical application of speaker verification using '
                         '[SpeechBrain](https://speechbrain.github.io/) - '
                         'view project source code on '
                         
                         '[GitHub](https://github.com/kolahimself/voice-thenticate)')
             st.write('\n\n')
+
+            st.subheader('Record Your Voice')
 
 
 if __name__ == '__main__':
