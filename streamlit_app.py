@@ -40,7 +40,7 @@ def voice_thenticate():
                         format="wav",
                         key='A')
             
-            if speaker_a_audio[0] is not None:
+            if speaker_a_audio is not None:
                         # display audio data as received on the Python side
                         col_playback, col_space = st.columns([0.58,0.32])
                         with col_playback:
