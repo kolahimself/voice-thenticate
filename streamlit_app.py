@@ -85,7 +85,7 @@ def voice_thenticate():
     )
 
 
-def verify(audio_a: bytes, audio_b: bytes) -> None:
+def verify(audio_a, audio_b) -> None:
     """
     Performs speaker verification between the two input audio recordings.
 
