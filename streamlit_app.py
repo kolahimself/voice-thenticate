@@ -92,13 +92,13 @@ def verify(audio_a: bytes, audio_b: bytes) -> None:
         savedir="pretrained_models/spkrec-ecapa-voxceleb"
     )
 
-    # Use temporary files to store audio for verification
-    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a, \ 
-    tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
-        temp_file_a.write(audio_a)
-        temp_file_b.write(audio_b)
+    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a, \
+     tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
+    temp_file_a.write(speaker_audio_a["bytes"])
+    temp_file_b.write(speaker_audio_b["bytes"])
 
-        score, prediction = verification.verify_files(temp_file_a.name, temp_file_b.name)
+    score, prediction = verification.verify_files(temp_file_a.name, temp_file_b.name)
+
 
     # Convert tensor prediction to boolean for conditional logic
     prediction_bool = prediction.item() == 1  # True if prediction is [True]
