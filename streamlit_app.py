@@ -5,8 +5,7 @@ from streamlit_mic_recorder import mic_recorder
 
 # **App Configuration**
 st.set_page_config(
-    page_title="Voice Authentication Demo",  
-    layout="wide",  
+    page_title="Voice Authentication Demo"
 )
 
 # **Custom CSS**
