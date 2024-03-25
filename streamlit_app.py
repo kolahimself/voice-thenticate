@@ -8,7 +8,6 @@ def voice_thenticate():
             """          
             # Display the title and info
             st.title("voice-thenticate")
-            st.description('A practical application of speaker verification using SpeechBrains')
 
 
 if __name__ == '__main__':
