@@ -34,7 +34,7 @@ def voice_thenticate():
             # Call an instance of the audio recorder
             speaker_a_audio = st_audiorec()
             
-            if wav_audio_data is not None:
+            if speaker_a_audio is not None:
                         # display audio data as received on the Python side
                         col_playback, col_space = st.columns([0.58,0.42])
                         with col_playback:
