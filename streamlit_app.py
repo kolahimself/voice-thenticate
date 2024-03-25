@@ -1,5 +1,4 @@
 import streamlit as st
-!pip install streamlit-audiorec
 from st_audiorec import st_audiorec
 
 # DESIGN implement changes to the standard streamlit UI/UX
