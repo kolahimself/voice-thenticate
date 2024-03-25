@@ -32,7 +32,7 @@ def voice_thenticate():
             st.subheader('Set Up Your Voice ID')
 
             # Call an instance of the audio recorder
-            speaker_a_audio = st_audiorec(key="A")
+            speaker_a_audio = st_audiorec(key=1)
             
             if speaker_a_audio is not None:
                         # display audio data as received on the Python side
@@ -44,7 +44,7 @@ def voice_thenticate():
             st.subheader('Verify Your Voice')
 
             # Call an instance of the audio recorder
-            speaker_b_audio = st_audiorec(key="B")
+            speaker_b_audio = st_audiorec(key=2)
             
             if speaker_b_audio is not None:
                         # display audio data as received on the Python side
