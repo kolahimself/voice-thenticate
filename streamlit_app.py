@@ -1,6 +1,6 @@
 import io
 import streamlit as st
-from st_audiorec import st_audiorec
+from streamlit_mic_recorder import mic_recorder
 
 # DESIGN implement changes to the standard streamlit UI/UX
 st.set_page_config(page_title="streamlit_audio_recorder")
@@ -32,17 +32,17 @@ def voice_thenticate():
             # Section for recording initial user (owner so to say)'s voice
             st.subheader('Set Up Your Voice ID')
 
-            # Call an instance of the audio recorder
-            speaker_a_audio = st_audiorec()
+            # # Call an instance of the audio recorder
+            # speaker_a_audio = st_audiorec()
             
-            if speaker_a_audio is not None:
-                        # display audio data as received on the Python side
-                        col_playback, col_space = st.columns([0.58,0.32])
-                        with col_playback:
-                                    st.audio(speaker_a_audio, format='audio/wav')
+            # if speaker_a_audio is not None:
+            #             # display audio data as received on the Python side
+            #             col_playback, col_space = st.columns([0.58,0.32])
+            #             with col_playback:
+            #                         st.audio(speaker_a_audio, format='audio/wav')
 
-            # Create a BytesIO object
-            audio_buffer_a = io.BytesIO(speaker_a_audio)
+            # # Create a BytesIO object
+            # audio_buffer_a = io.BytesIO(speaker_a_audio)
 
             # Section for verifying user's voice
             st.subheader('Verify Your Voice')
