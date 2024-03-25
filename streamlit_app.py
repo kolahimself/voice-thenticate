@@ -12,8 +12,8 @@ st.markdown('''<style>.stAudio {height: 45px;}</style>''',
 # Design change hyperlink href link color
 st.markdown('''<style>.css-v37k9u a {color: #ff4c4b;}</style>''',
             unsafe_allow_html=True)  # darkmode
-st.markdown('''<style>.css-nlntq9 a {color: #ff4c4b;}</style>''',
-            unsafe_allow_html=True)  # lightmode
+# st.markdown('''<style>.css-nlntq9 a {color: #ff4c4b;}</style>''',
+#             unsafe_allow_html=True)  # lightmode
 
 def voice_thenticate():
             """
@@ -36,7 +36,7 @@ def voice_thenticate():
             
             if speaker_a_audio is not None:
                         # display audio data as received on the Python side
-                        col_playback, col_space = st.columns([0.58,0.22])
+                        col_playback, col_space = st.columns([0.58,0.32])
                         with col_playback:
                                     st.audio(speaker_a_audio, format='audio/wav')
 
