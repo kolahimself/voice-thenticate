@@ -54,6 +54,13 @@ def voice_thenticate():
             # Section for verifying user's voice
             st.subheader('Verify Your Voice')
 
+            speaker_audio_b = mic_recorder(
+                        start_prompt="Start recording",
+                        stop_prompt="Stop recording",
+                        just_once=False,
+                        use_container_width=False,
+                        format="wav")
+
 
 if __name__ == '__main__':
     # Call main function
