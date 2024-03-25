@@ -40,11 +40,11 @@ def voice_thenticate():
                         format="wav",
                         key='A')
             
-            if speaker_a_audio is not None:
+            if speaker_audio_a[0] is not None:
                         # display audio data as received on the Python side
                         col_playback, col_space = st.columns([0.58,0.32])
                         with col_playback:
-                                    st.audio(speaker_a_audio[0], format='audio/wav')
+                                    st.audio(speaker_audio_a[0], format='audio/wav')
 
             # # Create a BytesIO object
             # audio_buffer_a = io.BytesIO(speaker_a_audio)
@@ -60,11 +60,11 @@ def voice_thenticate():
                         format="wav",
                         key='B')
             
-            if speaker_b_audio[0] is not None:
+            if speaker_audio_b[0] is not None:
                         # display audio data as received on the Python side
                         col_playback, col_space = st.columns([0.58,0.32])
                         with col_playback:
-                                    st.audio(speaker_b_audio[0], format='audio/wav')
+                                    st.audio(speaker_audio_b[0], format='audio/wav')
 
             # Section for verifying user's voice with SpeechBrain
             st.subheader('Verify Your Voice')
@@ -74,7 +74,7 @@ def voice_thenticate():
                         label="Verify",
                         key='C',
                         help='Match your voice sample to your enrolled voice ID',
-                        on_click=verify(speaker_a_audio[0], speaker_b_audio[0]),
+                        on_click=verify(speaker_audio_a[0], speaker_audio_b[0]),
                         type="primary",
             )
 
