@@ -37,7 +37,8 @@ def voice_thenticate():
                         stop_prompt="Stop recording",
                         just_once=False,
                         use_container_width=False,
-                        format="wav")
+                        format="wav",
+                        key='A')
 
             # # Call an instance of the audio recorder
             # speaker_a_audio = st_audiorec()
@@ -59,7 +60,8 @@ def voice_thenticate():
                         stop_prompt="Stop recording",
                         just_once=False,
                         use_container_width=False,
-                        format="wav")
+                        format="wav",
+                        key='B')
 
 
 if __name__ == '__main__':
