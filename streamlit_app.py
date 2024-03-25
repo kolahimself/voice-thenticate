@@ -28,7 +28,17 @@ def voice_thenticate():
                         '[GitHub](https://github.com/kolahimself/voice-thenticate)')
             st.write('\n\n')
 
+            # Section for recording initial user (owner so to say)'s voice
             st.subheader('Record Your Voice')
+
+            # Call an instance of the audio recorder
+            speaker_a_audio = st.st_audiorec()
+            
+            if wav_audio_data is not None:
+                        # display audio data as received on the Python side
+                        col_playback, col_space = st.columns([0.58,0.42])
+                        with col_playback:
+                                    st.audio(speaker_a_audio, format='audio/wav')
 
 
 if __name__ == '__main__':
