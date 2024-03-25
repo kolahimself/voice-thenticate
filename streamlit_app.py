@@ -42,7 +42,7 @@ def voice_thenticate():
                                     st.audio(speaker_a_audio, format='audio/wav')
                                     
             with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
-                        temp_file.write(wav_audio_data)
+                        temp_file.write(speaker_a_audio)
                         temp_file_path = temp_file.name
                         st.success(f"Audio saved to {temp_file_path}")
 
