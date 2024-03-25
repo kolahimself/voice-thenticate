@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_mic_recorder import mic_recorder
 from speechbrain.inference.speaker import SpeakerRecognition
+import tempfile
 
 
 # **App Configuration**
@@ -90,7 +91,14 @@ def verify(audio_a: bytes, audio_b: bytes) -> None:
         source="speechbrain/spkrec-ecapa-voxceleb",
         savedir="pretrained_models/spkrec-ecapa-voxceleb"
     )
-    score, prediction = verification.verify_files(audio_a, audio_b)
+
+    # Use temporary files to store audio for verification
+    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a, \ 
+    tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
+        temp_file_a.write(audio_a)
+        temp_file_b.write(audio_b)
+
+        score, prediction = verification.verify_files(temp_file_a.name, temp_file_b.name)
 
     # Convert tensor prediction to boolean for conditional logic
     prediction_bool = prediction.item() == 1  # True if prediction is [True]
