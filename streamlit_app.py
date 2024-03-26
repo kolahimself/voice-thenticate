@@ -75,6 +75,8 @@ def voice_thenticate():
         format="wav",
         key="B"
     )
+    if st.session_state.A_output is not None:
+        st.write(str(st.session_state.A_output["sample_rate"]))
 
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verify Your Voice")
