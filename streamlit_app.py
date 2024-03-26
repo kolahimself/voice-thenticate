@@ -115,9 +115,9 @@ def callback(key: str):
     # Construct the session state key dynamically
     session_state_key = f"{key}_output"
 
-    if st.session_state.get(dynamic_key):
+    if st.session_state.get(session_state_key):
         # Access "bytes" key within data
-        audio_bytes = st.session_state[dynamic_key]["bytes"]
+        audio_bytes = st.session_state[session_state_key]["bytes"]
 
         # Playback
         col_playback, col_space = st.columns([0.58, 0.32])
