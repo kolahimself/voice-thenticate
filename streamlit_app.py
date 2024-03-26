@@ -77,9 +77,8 @@ def voice_thenticate():
         key="B",
         callback=callback_b
     )
-
-    st.write(str(st.session_state.A_output))
-    st.write(str(st.session_state.B_output))
+    if st.session_state.A_output is not None:
+        st.write(str(st.session_state.A_output["sample_rate"]))
 
     # # Section for verifying user's voice with SpeechBrain
     # st.subheader("Verify Your Voice")
