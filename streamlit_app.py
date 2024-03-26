@@ -39,13 +39,13 @@ def voice_thenticate():
     # Section for recording initial user (owner) voice
     st.subheader("Set Up Your Voice ID")
 
-    def callback_a():
-        """Plays back recorded audio associated with a given key from Streamlit session state.
-        """
-        if st.session_state.A_output:
-            # Access "bytes" key within data
-            audio_bytes_a = st.session_state.A_output["bytes"]
-            st.audio(audio_bytes_a)
+    # def callback_a():
+    #     """Plays back recorded audio associated with a given key from Streamlit session state.
+    #     """
+    #     if st.session_state.A_output:
+    #         # Access "bytes" key within data
+    #         audio_bytes_a = st.session_state.A_output["bytes"]
+    #         st.audio(audio_bytes_a)
 
     mic_recorder(
         start_prompt="Start recording ⏺️",
@@ -53,20 +53,19 @@ def voice_thenticate():
         just_once=False,  # Allow multiple recordings if needed
         use_container_width=False,
         format="wav",
-        key="A",
-        callback=callback_a
+        key="A"
     )
 
     # Section for recording user's voice for verification
     st.subheader("Unlock with Your Voice")
 
-    def callback_b():
-        """Plays back recorded audio associated with a given key from Streamlit session state.
-        """
-        if st.session_state.B_output:
-            # Access "bytes" key within data
-            audio_bytes_b = st.session_state.B_output["bytes"]
-            st.audio(audio_bytes_b)
+    # def callback_b():
+    #     """Plays back recorded audio associated with a given key from Streamlit session state.
+    #     """
+    #     if st.session_state.B_output:
+    #         # Access "bytes" key within data
+    #         audio_bytes_b = st.session_state.B_output["bytes"]
+    #         st.audio(audio_bytes_b)
 
     mic_recorder(
         start_prompt="Start recording ⏺️",
@@ -74,8 +73,7 @@ def voice_thenticate():
         just_once=False,  # Allow multiple recordings if needed
         use_container_width=False,
         format="wav",
-        key="B",
-        callback=callback_b
+        key="B"
     )
 
     # Section for verifying user's voice with SpeechBrain
