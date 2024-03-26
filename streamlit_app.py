@@ -74,9 +74,10 @@ def voice_thenticate():
 
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verify Your Voice")
+    print(speaker_audio_a, speaker_audio_b)
 
     # "Verify" button with hover text
-    if speaker_audio_a["bytes"] is not None and speaker_audio_b["bytes"] is not None:
+    if speaker_audio_a is not None and speaker_audio_b is not None:
         st.button(
             label="Verify",
             key="C",
