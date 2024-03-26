@@ -2,3 +2,4 @@ streamlit-mic-recorder
 speechbrain
 torchaudio
 ffmpeg
+PySoundFile
