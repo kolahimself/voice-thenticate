@@ -46,7 +46,7 @@ def voice_thenticate():
         use_container_width=False,
         format="wav",
         key="A",
-        callback=callback('A')
+        callback=callback_a
     )
 
     # Section for recording user's voice for verification
@@ -58,8 +58,7 @@ def voice_thenticate():
         just_once=False,  # Allow multiple recordings if needed
         use_container_width=False,
         format="wav",
-        key="B",
-        callback=callback('B')
+        key="B"
     )
 
     # Section for verifying user's voice with SpeechBrain
@@ -67,7 +66,6 @@ def voice_thenticate():
 
     # "Verify" button with hover text
     if speaker_audio_a is not None and speaker_audio_b is not None:
-        print('A', 'B')
         st.button(
             label="Verify",
             key="C",
@@ -110,15 +108,12 @@ def verify(audio_a, audio_b) -> None:
     else:
         st.error("Voice verification failed. Please try again.")
 
-def callback(key: str):
+def callback_a():
     """Plays back recorded audio associated with a given key from Streamlit session state.
     """
-    # Construct the session state key dynamically
-    session_state_key = f"{key}_output"
-
-    if st.session_state.get(session_state_key):
+    if st.session_state.A_output:
         # Access "bytes" key within data
-        audio_bytes = st.session_state[session_state_key]["bytes"]
+        audio_bytes = st.session_state.A_output["bytes"]
 
         # Playback
         col_playback, col_space = st.columns([0.58, 0.32])
