@@ -115,24 +115,24 @@ def callback_a():
     """
     if st.session_state.A_output:
         # Access "bytes" key within data
-        audio_bytes = st.session_state.A_output["bytes"]
+        audio_bytes_a = st.session_state.A_output["bytes"]
 
         # Playback
         col_playback, col_space = st.columns([0.58, 0.32])
         with col_playback:
-            st.audio(audio_bytes, format='audio/wav')
+            st.audio(audio_bytes_a, format='audio/wav')
 
 def callback_b():
     """Plays back recorded audio associated with a given key from Streamlit session state.
     """
     if st.session_state.B_output:
         # Access "bytes" key within data
-        audio_bytes = st.session_state.B_output["bytes"]
+        audio_bytes_b = st.session_state.B_output["bytes"]
 
         # Playback
         col_playback, col_space = st.columns([0.58, 0.32])
         with col_playback:
-            st.audio(audio_bytes, format='audio/wav')
+            st.audio(audio_bytes_b, format='audio/wav')
 
 
 if __name__ == "__main__":
