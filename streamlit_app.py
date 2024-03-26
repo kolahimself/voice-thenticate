@@ -75,8 +75,12 @@ def voice_thenticate():
         format="wav",
         key="B"
     )
-    if st.session_state.A_output is not None:
+    if st.session_state.A_output is not None :
         st.write(str(st.session_state.A_output["id"]))
+
+    if st.session_state.A_output is not None and st.session_state.B_output is not None::
+        st.write(str(st.session_state.A_output["id"]))
+        st.write(str(st.session_state.B_output["id"]))
 
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verify Your Voice")
@@ -114,8 +118,7 @@ def verify(audio_a, audio_b) -> None:
     # with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a, tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
     #     temp_file_a.write(audio_a)
     #     temp_file_b.write(audio_b)
-    st.write(type(bytes(audio_a)), type(bytes(audio_b)))
-    score, prediction = verification.verify_files(audio_a, audio_b)
+    score, prediction = verification.verify_files(bytes(audio_a), bytes(audio_b))
     
 
     # # Convert tensor prediction to boolean for conditional logic
