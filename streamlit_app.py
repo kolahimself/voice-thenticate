@@ -78,8 +78,8 @@ def voice_thenticate():
         callback=callback_b
     )
 
-    print(st.session_state.A_output)
-    print(st.session_state.B_output)
+    print(st.session_state.A_output, 1)
+    print(st.session_state.B_output, 2)
 
     # # Section for verifying user's voice with SpeechBrain
     # st.subheader("Verify Your Voice")
