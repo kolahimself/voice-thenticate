@@ -78,7 +78,7 @@ def voice_thenticate():
     if st.session_state.A_output is not None :
         st.write(str(st.session_state.A_output["id"]))
 
-    if st.session_state.A_output is not None and st.session_state.B_output is not None::
+    if st.session_state.A_output is not None and st.session_state.B_output is not None:
         st.write(str(st.session_state.A_output["id"]))
         st.write(str(st.session_state.B_output["id"]))
 
