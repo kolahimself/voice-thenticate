@@ -118,7 +118,7 @@ def verify(audio_a, audio_b) -> None:
     # with tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_a, tempfile.NamedTemporaryFile(suffix=".wav") as temp_file_b:
     #     temp_file_a.write(audio_a)
     #     temp_file_b.write(audio_b)
-    score, prediction = verification.verify_files(bytes(audio_a), bytes(audio_b))
+    score, prediction = verification.verify_files(audio_a.encode(), audio_b.encode())
     
 
     # # Convert tensor prediction to boolean for conditional logic
