@@ -67,6 +67,7 @@ def voice_thenticate():
 
     # "Verify" button with hover text
     if speaker_audio_a is not None and speaker_audio_b is not None:
+        print(speaker_audio_a, speaker_audio_b)
         st.button(
             label="Verify",
             key="C",
