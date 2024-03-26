@@ -1,5 +1,5 @@
 streamlit-mic-recorder
 speechbrain
-torchaudio
+torchaudio==2.0.1
 ffmpeg
 PySoundFile
