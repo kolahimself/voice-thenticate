@@ -78,22 +78,25 @@ def voice_thenticate():
         callback=callback_b
     )
 
-    # Section for verifying user's voice with SpeechBrain
-    st.subheader("Verify Your Voice")
+    print(st.session_state.A_output["bytes"])
+    print(st.session_state.B_output["bytes"])
 
-    # The user recordings in variables
-    speaker_audio_a = st.session_state.A_output["bytes"]
-    speaker_audio_b = st.session_state.B_output["bytes"]
+    # # Section for verifying user's voice with SpeechBrain
+    # st.subheader("Verify Your Voice")
 
-    # "Verify" button with hover text
-    if speaker_audio_a is not None and speaker_audio_b is not None:
-        st.button(
-            label="Verify",
-            key="C",
-            help="Match your voice sample to your enrolled voice ID",
-            on_click=verify(speaker_audio_a, speaker_audio_b),
-            type="primary"
-        )
+    # # The user recordings in variables
+    # speaker_audio_a = st.session_state.A_output["bytes"]
+    # speaker_audio_b = st.session_state.B_output["bytes"]
+
+    # # "Verify" button with hover text
+    # if speaker_audio_a is not None and speaker_audio_b is not None:
+    #     st.button(
+    #         label="Verify",
+    #         key="C",
+    #         help="Match your voice sample to your enrolled voice ID",
+    #         on_click=verify(speaker_audio_a, speaker_audio_b),
+    #         type="primary"
+    #     )
 
 
 def verify(audio_a, audio_b) -> None:
