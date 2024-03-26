@@ -46,13 +46,8 @@ def voice_thenticate():
         use_container_width=False,
         format="wav",
         key="A",
+        callback=callback('A')
     )
-
-    if speaker_audio_a is not None:
-        # Display audio data for playback
-        col_playback, col_space = st.columns([0.58, 0.32])
-        with col_playback:
-            st.audio(speaker_audio_a["bytes"], format="audio/wav")
 
     # Section for recording user's voice for verification
     st.subheader("Unlock with Your Voice")
@@ -64,17 +59,11 @@ def voice_thenticate():
         use_container_width=False,
         format="wav",
         key="B",
+        callback=callback('B')
     )
-
-    if speaker_audio_b is not None:
-        # Display audio data for playback
-        col_playback, col_space = st.columns([0.58, 0.32])
-        with col_playback:
-            st.audio(speaker_audio_b["bytes"], format="audio/wav")
 
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verify Your Voice")
-    print(speaker_audio_a, speaker_audio_b)
 
     # "Verify" button with hover text
     if speaker_audio_a is not None and speaker_audio_b is not None:
@@ -119,6 +108,21 @@ def verify(audio_a, audio_b) -> None:
         st.success("Voice verified successfully!")
     else:
         st.error("Voice verification failed. Please try again.")
+
+def callback(key: str):
+    """Plays back recorded audio associated with a given key from Streamlit session state.
+    """
+    # Construct the session state key dynamically
+    session_state_key = f"{key}_output"
+
+    if st.session_state.get(dynamic_key):
+        # Access "bytes" key within data
+        audio_bytes = st.session_state[dynamic_key]["bytes"]
+
+        # Playback
+        col_playback, col_space = st.columns([0.58, 0.32])
+        with col_playback:
+            st.audio(audio_bytes, format='audio/wav')
 
 
 if __name__ == "__main__":
