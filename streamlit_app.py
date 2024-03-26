@@ -38,11 +38,18 @@ def voice_thenticate():
 
     # Section for recording initial user (owner) voice
     st.subheader("Set Up Your Voice ID")
-    print(1, 2)
 
-    speaker_audio_a = mic_recorder(
-        start_prompt="Start recording",
-        stop_prompt="Stop recording",
+    def callback_a():
+        """Plays back recorded audio associated with a given key from Streamlit session state.
+        """
+        if st.session_state.A_output:
+            # Access "bytes" key within data
+            audio_bytes_a = st.session_state.A_output["bytes"]
+            st.audio(audio_bytes_a)
+
+    mic_recorder(
+        start_prompt="Start recording ⏺️",
+        stop_prompt="Stop recording ⏹️",
         just_once=False,  # Allow multiple recordings if needed
         use_container_width=False,
         format="wav",
@@ -53,9 +60,17 @@ def voice_thenticate():
     # Section for recording user's voice for verification
     st.subheader("Unlock with Your Voice")
 
-    speaker_audio_b = mic_recorder(
-        start_prompt="Start recording",
-        stop_prompt="Stop recording",
+    def callback_b():
+        """Plays back recorded audio associated with a given key from Streamlit session state.
+        """
+        if st.session_state.B_output:
+            # Access "bytes" key within data
+            audio_bytes_b = st.session_state.B_output["bytes"]
+            st.audio(audio_bytes_b)
+
+    mic_recorder(
+        start_prompt="Start recording ⏺️",
+        stop_prompt="Stop recording ⏹️",
         just_once=False,  # Allow multiple recordings if needed
         use_container_width=False,
         format="wav",
@@ -66,15 +81,15 @@ def voice_thenticate():
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verify Your Voice")
 
-    # "Verify" button with hover text
-    if speaker_audio_a is not None and speaker_audio_b is not None:
-        st.button(
-            label="Verify",
-            key="C",
-            help="Match your voice sample to your enrolled voice ID",
-            on_click=verify(speaker_audio_a["bytes"], speaker_audio_b["bytes"]),
-            type="primary"
-        )
+    # # "Verify" button with hover text
+    # if speaker_audio_a is not None and speaker_audio_b is not None:
+    #     st.button(
+    #         label="Verify",
+    #         key="C",
+    #         help="Match your voice sample to your enrolled voice ID",
+    #         on_click=verify(speaker_audio_a["bytes"], speaker_audio_b["bytes"]),
+    #         type="primary"
+    #     )
 
 
 def verify(audio_a, audio_b) -> None:
@@ -109,30 +124,6 @@ def verify(audio_a, audio_b) -> None:
         st.success("Voice verified successfully!")
     else:
         st.error("Voice verification failed. Please try again.")
-
-def callback_a():
-    """Plays back recorded audio associated with a given key from Streamlit session state.
-    """
-    if st.session_state.A_output:
-        # Access "bytes" key within data
-        audio_bytes_a = st.session_state.A_output["bytes"]
-
-        # Playback
-        col_playback, col_space = st.columns([0.58, 0.32])
-        with col_playback:
-            st.audio(audio_bytes_a, format='audio/wav')
-
-def callback_b():
-    """Plays back recorded audio associated with a given key from Streamlit session state.
-    """
-    if st.session_state.B_output:
-        # Access "bytes" key within data
-        audio_bytes_b = st.session_state.B_output["bytes"]
-
-        # Playback
-        col_playback, col_space = st.columns([0.58, 0.32])
-        with col_playback:
-            st.audio(audio_bytes_b, format='audio/wav')
 
 
 if __name__ == "__main__":
