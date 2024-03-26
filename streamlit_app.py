@@ -12,13 +12,17 @@ import tempfile
 
 
 # **App Configuration**
-st.set_page_config(
-    page_title="Voice Authentication Demo"
-)
+def set_page_config():
+    """
+    Sets the page title and custom CSS for the Streamlit app.
+    """
+    st.set_page_config(
+        page_title="Voice Authentication Demo"
+    )
 
-# **Custom CSS**
-st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''',
-            unsafe_allow_html=True)
+    # Custom CSS (optional)
+    st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''',
+                unsafe_allow_html=True)
 
 
 def voice_thenticate():
@@ -27,14 +31,15 @@ def voice_thenticate():
 
     This function builds the Streamlit layout for voice enrollment and verification.
     """
+    set_page_config()  # Call page configuration function
 
-    # Display the title and info
+    # Display the title and information
     st.title("voice-thenticate")
     st.markdown(
         'A demonstration of speaker verification using [SpeechBrain](https://speechbrain.github.io/).'
         ' View project source code on [GitHub](https://github.com/kolahimself/voice-thenticate).'
     )
-    st.write("\n")  # Add a space for better readability
+    st.write("\n")  # Space for better readability
 
     # Section for recording initial user (owner) voice
     st.subheader("Set Up Your Voice ID")
@@ -42,7 +47,7 @@ def voice_thenticate():
     mic_recorder(
         start_prompt="Start recording ⏺️",
         stop_prompt="Stop recording ⏹️",
-        just_once=False,  # Allow multiple recordings if needed
+        just_once=False,  
         use_container_width=False,
         format="wav",
         key="A"
@@ -54,7 +59,7 @@ def voice_thenticate():
     mic_recorder(
         start_prompt="Start recording ⏺️",
         stop_prompt="Stop recording ⏹️",
-        just_once=False,  # Allow multiple recordings if needed
+        just_once=False,  
         use_container_width=False,
         format="wav",
         key="B"
@@ -63,11 +68,7 @@ def voice_thenticate():
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verification Result")
 
-    # "Verify" button with hover text
     if st.session_state.A_output is not None and st.session_state.B_output is not None:
-        # Status message
-        st.write("verifying...")
-
         # Verification outcone
         verify(st.session_state.A_output["bytes"], st.session_state.B_output["bytes"])
 
@@ -81,6 +82,16 @@ def verify(audio_a, audio_b) -> None:
         audio_b: Bytes representing the user's voice for verification.
     """
     def save_audio_as_wav(audio_bytes, filename):
+        """
+        Saves the provided audio bytes as a temporary WAV file.
+
+        Args:
+            audio_bytes (bytes): Raw audio data in bytes format.
+            filename (str): Desired filename for the temporary WAV file.
+
+        Returns:
+            str: Path to the saved temporary WAV file.
+        """
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_file:
             temp_file.write(audio_bytes)
             return temp_file.name
@@ -100,6 +111,7 @@ def verify(audio_a, audio_b) -> None:
         
     if prediction_bool:
         st.success("✅ Voice verified successfully!")
+        st.snow()
     else:
         st.error("❌ Voice verification failed. Please try again.")
 
