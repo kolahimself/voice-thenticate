@@ -91,7 +91,7 @@ def voice_thenticate():
             label="Verify",
             key="C",
             help="Match your voice sample to your enrolled voice ID",
-            on_click=verify(speaker_audio_a["bytes"], speaker_audio_b["bytes"]),
+            on_click=verify(speaker_audio_a, speaker_audio_b),
             type="primary"
         )
 
