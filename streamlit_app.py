@@ -38,6 +38,7 @@ def voice_thenticate():
 
     # Section for recording initial user (owner) voice
     st.subheader("Set Up Your Voice ID")
+    print(1, 2)
 
     speaker_audio_a = mic_recorder(
         start_prompt="Start recording",
@@ -64,7 +65,6 @@ def voice_thenticate():
 
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verify Your Voice")
-    print(1, 2)
 
     # "Verify" button with hover text
     if speaker_audio_a is not None and speaker_audio_b is not None:
