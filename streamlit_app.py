@@ -115,15 +115,15 @@ def verify(audio_a, audio_b) -> None:
         temp_file_a.write(audio_a)
         temp_file_b.write(audio_b)
 
-    score, prediction = verification.verify_files(temp_file_a.name, temp_file_b.name)
+    # score, prediction = verification.verify_files(temp_file_a.name, temp_file_b.name)
 
-    # Convert tensor prediction to boolean for conditional logic
-    prediction_bool = prediction.item() == 1  # True if prediction is [True]
+    # # Convert tensor prediction to boolean for conditional logic
+    # prediction_bool = prediction.item() == 1  # True if prediction is [True]
         
-    if prediction_bool:
-        st.success("Voice verified successfully!")
-    else:
-        st.error("Voice verification failed. Please try again.")
+    # if prediction_bool:
+    #     st.success("Voice verified successfully!")
+    # else:
+    #     st.error("Voice verification failed. Please try again.")
 
 
 if __name__ == "__main__":
