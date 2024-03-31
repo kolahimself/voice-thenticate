@@ -24,12 +24,10 @@ def set_page_config():
     st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''',
                 unsafe_allow_html=True)
 
-
-def voice_thenticate():
+def auth(): -> str
     """
-    Displays the user interface for voice authentication demonstration.
-
-    This function builds the Streamlit layout for voice enrollment and verification.
+    Initial authentication, retrieves the username of the user.
+    Users can either sign in or sign up
     """
     set_page_config()  # Call page configuration function
 
@@ -41,6 +39,41 @@ def voice_thenticate():
     )
     st.write("\n")  # Space for better readability
 
+    # Entry text field
+    username = st.text_input(label="Username", key='A1')
+
+    # Sign in & Sign up buttons
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        sign_in_button = st.button(
+            label="Sign In",
+            key="A2",
+            type="primary",
+            on_click=sign_in
+        )
+
+    with col_right:
+        sign_up_button = st.button(
+            label="Sign Up",
+            key="A3",
+            type="primary",
+            on_click=sign_up
+        )
+    return username
+
+def sign_in():
+    pass
+
+def sign_up():
+    pass
+
+def voice_thenticate():
+    """
+    Displays the user interface for voice authentication demonstration.
+
+    This function builds the Streamlit layout for voice enrollment and verification.
+    """
     # Section for recording initial user (owner) voice
     st.subheader("Set Up Your Voice ID")
 
@@ -118,4 +151,5 @@ def verify(audio_a, audio_b) -> None:
 
 if __name__ == "__main__":
     # Call main function
-    voice_thenticate()
+    # voice_thenticate()
+    username = auth()
