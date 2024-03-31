@@ -50,6 +50,7 @@ def auth():
             label="Sign In",
             key="A2",
             type="primary",
+            use_container_width=True,
             on_click=sign_in
         )
 
@@ -58,6 +59,7 @@ def auth():
             label="Sign Up",
             key="A3",
             type="primary",
+            use_container_width=True,
             on_click=sign_up
         )
     return username
