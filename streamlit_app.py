@@ -24,7 +24,7 @@ def set_page_config():
     st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''',
                 unsafe_allow_html=True)
 
-def auth(): -> str
+def auth():
     """
     Initial authentication, retrieves the username of the user.
     Users can either sign in or sign up
