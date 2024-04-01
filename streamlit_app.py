@@ -93,11 +93,11 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         reg_usernames: List containing all registered voices
     """
 
-    if "page" not in st.session_state:
-        st.session_state.page = 0
+    # if "page" not in st.session_state:
+    #     st.session_state.page = 0
 
-    def nextpage(): st.session_state.page += 1
-    def restart(): st.session_state.page = 0
+    # def nextpage(): st.session_state.page += 1
+    # def restart(): st.session_state.page = 0
 
     # placeholder = st.empty()
     # st.button("Next",on_click=nextpage,disabled=(st.session_state.page > 3))
@@ -125,6 +125,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     #         st.write("This is the end")
     #         st.button("Restart",on_click=restart)
     display_initial_app_info()
+    st.write(st.session_state.page)
     
     # placeholders = [st.empty() for _ in range(2)]
         
