@@ -337,7 +337,7 @@ if __name__ == "__main__":
 
     # Initial page state ("initial", "sign_in", or "sign_up")
     if "page" not in st.session_state:
-    st.session_state.page = "initial"  
+        st.session_state.page = "initial"  
 
     # Display initail user interface
     display_initial_ui(registered_usernames, storage)
