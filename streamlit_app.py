@@ -94,10 +94,14 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     """
     display_initial_app_info()
     
+    # Initialization of user state 
+    if 'user_state' not in st.session_state:
+        st.session_state['user_state'] = None
+    
     def on_sign_in_click(user, reg_usernames):
         if user in reg_usernames:
             st.session_state["user"] = user
-            user_state = 'signing_in'
+            st.session_state.user_state = 'signing_in'
         else:
             st.session_state.user_state = None
             
@@ -149,7 +153,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         #     'firebase_storage': firebase_storage,
         # }
         st.button("Sign Out", on_click=on_signout_click, key='A4')
-        st.success(f"Welcome back, {st.session_state['user']}! Just a quick voice check to ensure it's you.")
+        st.success(f"Welcome {st.session_state['user']}, Your voice is your key – let's confirm it's you.")
     st.write(st.session_state.user_state)
     
     return user_state
