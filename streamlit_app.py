@@ -333,5 +333,7 @@ if __name__ == "__main__":
     # Initialize session state containing context imformation in the app
     init_session_state(storage, registered_usernames)
 
+    st.write(st.session_state.sess_data)
+
     # Display initial user interface
     # user_authentication(registered_usernames)
