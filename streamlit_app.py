@@ -70,16 +70,13 @@ def fetch_firebase_data(storage) -> list:
 
     Returns:
         list: A list of file names within the specified folder, or an empty list if no files are found.
-    """
-    st.write(str(storage))
-    try:
-        files = storage.list_files()
-        file_names = [file.name.split('.')[0] for file in files]
-        return file_names
+    """    
+    files = storage.list_files()
+    st.write(files)
+    file_names = [file.name.split('.')[0] for file in files]
+    return file_names
         
-    except Exception as e:
-        print(f"Error fetching data from Firebase: {e}")
-        return []  # Return an empty list on error
+    
 
 
 def display_initial_ui(reg_usernames: list) -> str:
