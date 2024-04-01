@@ -142,7 +142,15 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             st.error("Invalid user name or password.")
     else:
         st.success(f"Welcome, {st.session_state['user']}")
-        st.button("Logout")
+        # st.button("Logout")
+        mic_recorder(
+                start_prompt="Start recording ⏺️",
+                stop_prompt="Stop recording ⏹️",
+                just_once=False,  
+                use_container_width=False,
+                format="wav",
+                key="B"
+            )
     
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
