@@ -132,6 +132,10 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     display_initial_app_info()
     
     # placeholders = [st.empty() for _ in range(2)]
+    def on_login_click(user, reg_usernames):
+        if user in reg_usernames:
+            st.session_state["user"] = user
+            
     if st.session_state.setdefault("user", None) is None:
         username = st.text_input(label="Username", key='A1')
         if st.button(label="Login", on_click=on_login_click, args=(username, reg_usernames)):
@@ -139,9 +143,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     else:
         st.success(f"Welcome, {James}")
         st.button("Logout")
-    def on_login_click(user, reg_usernames):
-        if user in reg_usernames:
-            st.session_state["user"] = user
+    
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
         
