@@ -9,7 +9,6 @@ import streamlit as st
 import tempfile
 import pyrebase
 from streamlit_mic_recorder import mic_recorder
-from st_audiorec import st_audiorec
 from speechbrain.inference.speaker import SpeakerRecognition
 import time
 
