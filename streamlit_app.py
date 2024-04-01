@@ -114,7 +114,7 @@ def display_initial_ui(reg_usernames: list) -> str:
     #         key="A3",
     #         type="primary",
     #         use_container_width=True
-        )
+        # )
     
     if sign_in_button:
         # sign_in(username, reg_usernames)
