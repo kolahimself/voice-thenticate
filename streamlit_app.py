@@ -227,7 +227,7 @@ if __name__ == "__main__":
     
     # Connect to firebase and get reference to storage
     storage = init_firebase_storage()
-    st.write('ÁSDSDDSS')
+    st.write(str(storage))
 
     # Retrieve registered usernames
     registered_usernames = fetch_firebase_data(storage)
