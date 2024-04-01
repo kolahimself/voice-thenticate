@@ -94,8 +94,12 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     """
     display_initial_app_info()
     
-    def on_login_click(user, reg_usernames):
+    def on_sign_in_click(user, reg_usernames):
         if user in reg_usernames:
+            st.session_state["user"] = user
+            
+    def on_signup_click(user, reg_usernames):
+        if user not in reg_usernames:
             st.session_state["user"] = user
             
     def on_logout_click():
@@ -114,20 +118,29 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
                          key="A2",
                          type="primary",
                          use_container_width=True)
+            with col_right:
+                sign_up_button = st.button(label="Sign Up",
+                         on_click=on_signup_click, 
+                         args=(username, reg_usernames),
+                         key="A3",
+                         type="primary",
+                         use_container_width=True)
+                
             if sign_in_button:
                 st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
+            elif sign_up_button:
+                st.error("Username '{username}' already exists. Please choose a different username.")
         else: 
             # Handle cases where no username is entered
             st.warning("Please enter a username to continue.")
             
     else:
         # Store authentication/verificaiton requirements
-        # auth_reqs = {
-        #     'username': username,
-        #     'registered_usernames': reg_usernames,
-        #     'placeholders': placeholders,
-        #     'firebase_storage': firebase_storage,
-        # }
+        auth_reqs = {
+            'username': {st.session_state['user']},
+            'registered_usernames': reg_usernames,
+            'firebase_storage': firebase_storage,
+        }
         
         st.success(f"Welcome, {st.session_state['user']}")
         st.button("Logout", on_click=on_logout_click)
