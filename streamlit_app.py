@@ -160,14 +160,14 @@ def sign_in(auth_reqs: dict):
             audio_a = download_audio(username, firebase_storage)
             st.write('success!')
 
-            # mic_recorder(
-            #     start_prompt="Start recording ⏺️",
-            #     stop_prompt="Stop recording ⏹️",
-            #     just_once=False,  
-            #     use_container_width=False,
-            #     format="wav",
-            #     key="B"
-            # )
+            mic_recorder(
+                start_prompt="Start recording ⏺️",
+                stop_prompt="Stop recording ⏹️",
+                just_once=False,  
+                use_container_width=False,
+                format="wav",
+                key="B"
+            )
 
             # # Section for verifying user's voice with SpeechBrain
             # st.subheader("Verification Result")
