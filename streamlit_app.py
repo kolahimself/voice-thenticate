@@ -138,7 +138,7 @@ def sign_in(auth_reqs: dict):
     """
     # Unpack requirements
     username = auth_reqs['username']
-    reg_usernames = auth_reqs['registered usernames']
+    reg_usernames = auth_reqs['registered_usernames']
     placeholders = auth_reqs['placeholders']
     firebase_storage = auth_reqs['firebase_storage']
     
