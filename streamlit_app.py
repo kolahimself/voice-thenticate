@@ -132,7 +132,7 @@ def sign_in(username, reg_usernames):
 
         else:
             # Clear existing layout elements
-            st.write('I'm here')
+            st.write('Im here')
     else:
         # Handle cases where no username is entered
         st.warning("Please enter a username to continue.")
