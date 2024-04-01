@@ -94,12 +94,12 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     """
     display_initial_app_info()
     
-    placeholders = [st.empty() for _ in range(4)]
+    placeholders = [st.empty() for _ in range(2)]
         
     # Entry text field
     username = placeholders[0].text_input(label="Username", key='A1')
         
-    with placeholders[2]:
+    with placeholders[1]:
         col_left, col_right = st.columns(2)
         
         with col_left:
