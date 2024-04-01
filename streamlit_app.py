@@ -95,7 +95,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     # Initial page state ("initial", "sign_in", or "sign_up")
     if "page" not in st.session_state:
         st.session_state.page = 0  
-        st.write(st.session_state.page)
+    st.write(st.session_state.page)
 
     # if "page" not in st.session_state:
     #     st.session_state.page = 0
