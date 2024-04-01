@@ -93,17 +93,26 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         reg_usernames: List containing all registered voices
     """
     display_initial_app_info()
+
+    user_state = None
     
     def on_sign_in_click(user, reg_usernames):
         if user in reg_usernames:
             st.session_state["user"] = user
+            user_state = 'signing_in'
+        else:
+            user_state = None
             
     def on_signup_click(user, reg_usernames):
         if user not in reg_usernames:
             st.session_state["user"] = user
+            user_state = 'signing_up'
+        else:
+            user_state = None
             
-    def on_logout_click():
+    def on_signout_click():
         st.session_state["user"] = None
+        user_state = None
             
     if st.session_state.setdefault("user", None) is None:
         # Entry text field
@@ -136,26 +145,28 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             
     else:
         # Store authentication/verificaiton requirements
-        auth_reqs = {
-            'username': {st.session_state['user']},
-            'registered_usernames': reg_usernames,
-            'firebase_storage': firebase_storage,
-        }
-        
-        st.success(f"Welcome, {st.session_state['user']}")
-        st.button("Logout", on_click=on_logout_click)
-        mic_recorder(
-                start_prompt="Start recording ⏺️",
-                stop_prompt="Stop recording ⏹️",
-                just_once=False,  
-                use_container_width=False,
-                format="wav",
-                key="B"
-            )
-        # Download user audio from firebase for verification
-        st.write('Downloading...')
-        audio_a = download_audio(st.session_state['user'], firebase_storage)
-        st.write('success!')
+        # auth_reqs = {
+        #     'username': {st.session_state['user']},
+        #     'registered_usernames': reg_usernames,
+        #     'firebase_storage': firebase_storage,
+        # }
+        st.button("Sign Out", on_click=on_signout_click, key='A4')
+        st.success(f"Welcome back, {st.session_state['user']}! Just a quick voice check to ensure it's you.")
+    st.write(user_state)
+    
+    return user_state
+        # mic_recorder(
+        #         start_prompt="Start recording ⏺️",
+        #         stop_prompt="Stop recording ⏹️",
+        #         just_once=False,  
+        #         use_container_width=False,
+        #         format="wav",
+        #         key="B"
+        #     )
+        # # Download user audio from firebase for verification
+        # st.write('Downloading...')
+        # audio_a = download_audio(st.session_state['user'], firebase_storage)
+        # st.write('success!')
     
     # 
     # username = placeholders[0].text_input(label="Username", key='A1')
@@ -357,4 +368,4 @@ if __name__ == "__main__":
     registered_usernames = fetch_firebase_data(storage)
 
     # Display initial user interface
-    display_initial_ui(registered_usernames, storage)
+    user_state = display_initial_ui(registered_usernames, storage)
