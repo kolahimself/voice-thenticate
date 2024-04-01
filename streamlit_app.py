@@ -91,17 +91,15 @@ def display_initial_ui(reg_usernames: list) -> str:
         reg_usernames: List containing all registered voices
     """
     display_initial_app_info()
-
-    placeholder = st.empty()
     
     # Entry text field
-    username = placeholder.text_input(label="Username", key='A1')
+    username = st.text_input(label="Username", key='A1')
 
     # Sign in & Sign up buttons
-    col_left, col_right = placeholder.columns(2)
+    col_left, col_right = st.columns(2)
 
     with col_left:
-        sign_in_button = placeholder.button(
+        sign_in_button = st.button(
             label="Sign In",
             key="A2",
             type="primary",
@@ -109,13 +107,13 @@ def display_initial_ui(reg_usernames: list) -> str:
         )
 
     with col_right:
-        sign_up_button = placeholder.button(
+        sign_up_button = st.button(
             label="Sign Up",
             key="A3",
             type="primary",
             use_container_width=True
         )
-
+    placehoder = st.empty()
     if sign_in_button:
         sign_in(username, reg_usernames, placeholder)
         
