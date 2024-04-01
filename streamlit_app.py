@@ -24,6 +24,22 @@ def set_page_config():
     st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''',
                 unsafe_allow_html=True)
 
+
+def display_initial_app_info():
+    """
+    Displays the initial title, information, and formatting for the app.
+    """
+    set_page_config()  # Call page configuration function
+
+    # Display the title and information
+    st.title("voice-thenticate")
+    st.markdown(
+        'A demonstration of speaker verification using [SpeechBrain](https://speechbrain.github.io/).'
+        ' View project source code on [GitHub](https://github.com/kolahimself/voice-thenticate).'
+    )
+    st.write("\n")  # Space for better readability
+
+
 def init_firebase_storage():
     """
     Initializes a Firebase app and returns the storage object.
@@ -76,16 +92,8 @@ def display_initial_ui(reg_usernames: list) -> str:
     Args:
         reg_usernames: List containing all registered voices
     """
-    set_page_config()  # Call page configuration function
-
-    # Display the title and information
-    st.title("voice-thenticate")
-    st.markdown(
-        'A demonstration of speaker verification using [SpeechBrain](https://speechbrain.github.io/).'
-        ' View project source code on [GitHub](https://github.com/kolahimself/voice-thenticate).'
-    )
-    st.write("\n")  # Space for better readability
-
+    display_initial_app_info()
+    
     # Entry text field
     username = st.text_input(label="Username", key='A1')
 
@@ -110,9 +118,9 @@ def display_initial_ui(reg_usernames: list) -> str:
 
     if sign_in_button:
         sign_in(username, reg_usernames)
+        
     elif sign_up_button:
         sign_up()
-
     
 
 def sign_in(username, reg_usernames):
