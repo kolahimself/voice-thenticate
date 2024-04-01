@@ -194,7 +194,7 @@ def download_audio(username, firebase_storage):
     
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_file:
         # Download Firebase audio to the temporary file
-        firebase_storage.child(path_cloud).download(filename=str(temp_file.name))
+        firebase_storage.child(path_cloud).download(filename=temp_file.name, path=temp_file.name)
         wav_path = temp_file.name  # Store the temporary path
 
     return wav_path
