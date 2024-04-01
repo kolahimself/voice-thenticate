@@ -106,12 +106,15 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         username = st.text_input(label="Username", key='A1')
         
         if username:
-            if st.button(label="Sign In",
+            col_left, col_right = st.columns(2)
+            with col_left:
+                sign_in_button = st.button(label="Sign In",
                          on_click=on_login_click, 
                          args=(username, reg_usernames),
                          key="A2",
                          type="primary",
-                         use_container_width=True):
+                         use_container_width=True)
+            if sign_in_button:
                 st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
         else: 
             # Handle cases where no username is entered
