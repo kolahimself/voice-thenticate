@@ -110,13 +110,13 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
                 use_container_width=True
             )
     
-        with col_right:
-            sign_up_button = st.button(
-                label="Sign Up",
-                key="A3",
-                type="primary",
-                use_container_width=True
-            )
+        # with col_right:
+        #     sign_up_button = st.button(
+        #         label="Sign Up",
+        #         key="A3",
+        #         type="primary",
+        #         use_container_width=True
+        #     )
 
     # Store authentication/verificaiton requirements
     auth_reqs = {
@@ -129,8 +129,8 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     if sign_in_button:
         sign_in(auth_reqs)
     
-    elif sign_up_button:
-        sign_up(auth_reqs)
+    # elif sign_up_button:
+    #     sign_up(auth_reqs)
 
 
 def sign_in(auth_reqs: dict):
