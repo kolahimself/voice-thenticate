@@ -88,15 +88,7 @@ def init_session_state(firebase_storage, reg_users):
     """
     Sets up initial session state with relevant objects.
     """
-    session_state_ctx = {
-        'reg_users': reg_users,
-        'storage': firebase_storage,
-        'user_state': None
-    }
-    
-    if 'sess_data' not in st.session_state:
-        st.session_state['sess_data'] = session_state_ctx
-        
+    pass
 
 def user_authentication():
     """
@@ -326,7 +318,13 @@ if __name__ == "__main__":
     registered_usernames = fetch_firebase_data(storage)
 
     # Initialize session state containing context imformation in the app
-    init_session_state(storage, registered_usernames)
+    if 'sess_data' not in st.session_state:
+        st.session_state['sess_data'] = {
+            'reg_users': reg_users,
+            'storage': firebase_storage,
+            'user_state': None
+        }
+    # init_session_state(storage, registered_usernames)
 
     # Initial user authentication
     user_authentication()
