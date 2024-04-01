@@ -5,3 +5,4 @@ sox
 ffmpeg
 PySoundFile
 pyrebase4
+soundfile
