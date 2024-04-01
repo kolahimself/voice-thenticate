@@ -185,6 +185,35 @@ def voice_auth_sign_up(firebase_storage):
         key="MIC_XC"
     )
 
+    if st.session_state.MIC_XC_output is not None:
+        # Convert owner recording to .wav
+        wav_for_upload = save_audio_as_wav(st.session_state.MIC_XC_output["bytes"])
+
+        # Upload the owner's voice recording to firebase
+        upload_audio(audio_file=wav_for_upload,
+                     username=st.session_state["user"],
+                     firebase_storage=firebase_storage)
+
+    # Section for recording user's voice for verification
+    st.subheader("Verify Your Voice ID")
+    
+    mic_recorder(
+        start_prompt="Start recording ⏺️",
+        stop_prompt="Stop recording ⏹️",
+        just_once=False,  
+        use_container_width=False,
+        format="wav",
+        key="MXC_CG"
+    )
+
+    # Section for verifying user's voice with SpeechBrain
+    st.subheader("Verification Result")
+
+    if st.session_state.MIC_XC_output is not None and st.session_state.MXC_CG_output is not None:
+        # Verification outcome
+        verify(st.session_state.MIC_XC_output["bytes"], st.session_state.MXC_CG_output["bytes"])
+
+
 def upload_audio(audio_file, username, firebase_storage):
     """
     Upload's the recorded audio to firebase as reference for signing in
@@ -305,6 +334,6 @@ if __name__ == "__main__":
     if st.session_state.user_state == 'signing_in':
         voice_auth_sign_in(st.session_state.storage)
     elif st.session_state.user_state == 'signing_up':
-        pass
+        voice_auth_sign_up(st.session_state.storage)
     else:
         pass
