@@ -65,7 +65,7 @@ def init_firebase_storage():
 
 def fetch_firebase_data(storage) -> list:
     """
-    Retrieves a list of file names within a specified Firebase Storage folder.
+    Retrieves a list of file names within the storage folder.
 
     Args:
         storage (pyrebase.storage.Storage): The initialized Firebase storage object.
@@ -73,9 +73,8 @@ def fetch_firebase_data(storage) -> list:
     Returns:
         list: A list of file names within the specified folder, or an empty list if no files are found.
     """
-    folder_path = 'reg_voices'
     try:
-        files = storage.list_files(folder_path)
+        files = storage.list_files()
         file_names = [file.name.split('.')[0] for file in files]
         return file_names
         
