@@ -83,7 +83,7 @@ def fetch_firebase_data(storage) -> list:
         return []  # Return an empty list on error
         
 
-def display_initial_ui(reg_usernames: list) -> str:
+def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     """
     Initial authentication page, retrieves the username of the user.
     Users can either sign in or sign up
@@ -116,18 +116,32 @@ def display_initial_ui(reg_usernames: list) -> str:
                 type="primary",
                 use_container_width=True
             )
+
+    # Store authentication/verificaiton requirements
+    auth_reqs = {
+        'username': username,
+        'registered_usernames': reg_usernames,
+        'placeholders': placeholders,
+        'firebase_storage': firebase_storage,
+    }
     
     if sign_in_button:
-        sign_in(username, reg_usernames, placeholders)
+        sign_in(auth_reqs)
     
     elif sign_up_button:
-        sign_up()
+        sign_up(auth_reqs)
 
 
-def sign_in(username, reg_usernames, placeholders):
+def sign_in(auth_reqs: dict):
     """
     Performs the sign-in processes, then directly moves to voice verification
     """
+    # Unpack requirements
+    username = auth_reqs['username']
+    reg_usernames = auth_reqs['registered usernames']
+    placeholders = auth_reqs['placeholders']
+    firebase_storage = auth_reqs['firebase_storage']
+    
     if username:
         if username not in reg_usernames:
             st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
@@ -137,13 +151,81 @@ def sign_in(username, reg_usernames, placeholders):
             for placeholder in placeholders:
                 time.sleep(0.001)
                 placeholder.empty()
+
+            # Section for recording user's voice for verification
+            st.subheader("Verify Your Voice ID")
+
+            mic_recorder(
+                start_prompt="Start recording ⏺️",
+                stop_prompt="Stop recording ⏹️",
+                just_once=False,  
+                use_container_width=False,
+                format="wav",
+                key="B"
+            )
+
+            # Section for verifying user's voice with SpeechBrain
+            st.subheader("Verification Result")
+
+            if st.session_state.B_output is not None:
+                # Download user audio from firebase for verification
+                audio_a = download_audio(username, firebase_storage)
+                
+                # Verification outcome
+                verify(audio_a, st.session_state.B_output["bytes"])
             
     else:
         # Handle cases where no username is entered
         st.warning("Please enter a username to continue.")
 
-def sign_up():
+def sign_up(auth_reqs: dict):
     pass
+
+def download_audio(username, firebase_storage):
+    """
+    Downloads users' audio from firebase 
+    """
+    path_cloud = str(username) + ".wav"
+    
+    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_file:
+        # Download Firebase audio to the temporary file
+        firebase_storage.child(path_cloud).download(temp_file.name)
+        wav_path = temp_file.name  # Store the temporary path
+
+    return wav_path
+
+
+def is_wav_file(audio):
+    """
+    Checks if the provided audio is a WAV file based on its extension.
+
+    Args:
+        audio: The audio data (bytes or path) to be checked.
+
+    Returns:
+        bool: True if the audio is a WAV file, False otherwise.
+    """
+    if isinstance(audio, str):
+        return audio.lower().endswith(".wav")
+    else:
+        return False
+
+
+def save_audio_as_wav(audio_bytes, filename):
+    """
+    Saves the provided audio bytes as a temporary WAV file.
+
+    Args:
+        audio_bytes (bytes): Raw audio data in bytes format.
+        filename (str): Desired filename for the temporary WAV file.
+
+    Returns:
+        str: Path to the saved temporary WAV file.
+    """
+    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_file:
+        temp_file.write(audio_bytes)
+        return temp_file.name
+
 
 def voice_thenticate():
     """
@@ -163,61 +245,40 @@ def voice_thenticate():
         key="A"
     )
 
-    # Section for recording user's voice for verification
-    st.subheader("Unlock with Your Voice")
-
-    mic_recorder(
-        start_prompt="Start recording ⏺️",
-        stop_prompt="Stop recording ⏹️",
-        just_once=False,  
-        use_container_width=False,
-        format="wav",
-        key="B"
-    )
-
-    # Section for verifying user's voice with SpeechBrain
-    st.subheader("Verification Result")
-
-    if st.session_state.A_output is not None and st.session_state.B_output is not None:
-        # Verification outcone
-        verify(st.session_state.A_output["bytes"], st.session_state.B_output["bytes"])
-
 
 def verify(audio_a, audio_b) -> None:
     """
     Performs speaker verification between the two input audio recordings.
 
     Args:
-        audio_a: Bytes representing the enrolled user's voice sample.
-        audio_b: Bytes representing the user's voice for verification.
+        audio_a: Either bytes representing the enrolled user's voice sample
+                or the path to a WAV file containing the sample.
+        audio_b: Either bytes representing the user's voice for verification
+                or the path to a WAV file containing the user's voice.
     """
-    def save_audio_as_wav(audio_bytes, filename):
-        """
-        Saves the provided audio bytes as a temporary WAV file.
+    # Check if audio_a is a WAV file path
+    if is_wav_file(audio_a):
+        wav_path_a = audio_a
+    else:
+        # Save audio_a as temporary WAV if it's bytes
+        wav_path_a = save_audio_as_wav(audio_a, "audio_a.wav")
 
-        Args:
-            audio_bytes (bytes): Raw audio data in bytes format.
-            filename (str): Desired filename for the temporary WAV file.
+    # Check if audio_b is a WAV file path
+    if is_wav_file(audio_b):
+        wav_path_b = audio_b
+    else:
+        # Save audio_b as temporary WAV if it's bytes
+        wav_path_b = save_audio_as_wav(audio_b, "audio_b.wav")
 
-        Returns:
-            str: Path to the saved temporary WAV file.
-        """
-        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_file:
-            temp_file.write(audio_bytes)
-            return temp_file.name
-
-    wav_path_a = save_audio_as_wav(audio_a, "audio_a.wav")
-    wav_path_b = save_audio_as_wav(audio_b, "audio_b.wav")
-    
+    # Speech Verification
     verification = SpeakerRecognition.from_hparams(
         source="speechbrain/spkrec-ecapa-voxceleb",
         savedir="pretrained_models/spkrec-ecapa-voxceleb"
     )
-    
     score, prediction = verification.verify_files(wav_path_a, wav_path_b)
 
     # Convert tensor prediction to boolean for conditional logic
-    prediction_bool = prediction.item() == 1  # True if prediction is [True]
+    prediction_bool = prediction.item() == 1  # True if prediction is tensor([True])
         
     if prediction_bool:
         st.success("✅ Voice verified successfully!")
@@ -237,4 +298,4 @@ if __name__ == "__main__":
     registered_usernames = fetch_firebase_data(storage)
 
     # Display initail user interface
-    display_initial_ui(registered_usernames)
+    display_initial_ui(registered_usernames, storage)
