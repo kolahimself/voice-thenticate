@@ -130,6 +130,10 @@ def sign_in(username, reg_usernames):
     if username:
         if username not in registered_usernames:
             st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
+
+        else:
+            # Clear existing layout elements
+            st.empty()
     else:
         # Handle cases where no username is entered
         st.warning("Please enter a username to continue.")
