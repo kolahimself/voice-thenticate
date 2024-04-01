@@ -155,6 +155,11 @@ def sign_in(auth_reqs: dict):
             # Section for recording user's voice for verification
             st.subheader("Verify Your Voice ID")
 
+            # Download user audio from firebase for verification
+            st.write('Downloading...')
+            audio_a = download_audio(username, firebase_storage)
+            st.write('success!')
+
             # mic_recorder(
             #     start_prompt="Start recording ⏺️",
             #     stop_prompt="Stop recording ⏹️",
