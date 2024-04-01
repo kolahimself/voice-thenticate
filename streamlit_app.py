@@ -128,8 +128,8 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     if sign_in_button:
         sign_in(auth_reqs)
     
-    # elif sign_up_button:
-    #     sign_up(auth_reqs)
+    elif sign_up_button:
+        sign_up(auth_reqs)
 
 
 def sign_in(auth_reqs: dict):
@@ -149,7 +149,7 @@ def sign_in(auth_reqs: dict):
         else:
             # Clear existing layout elements
             for placeholder in placeholders:
-                # time.sleep(0.001)
+                time.sleep(0.001)
                 placeholder.empty()
 
             # Section for recording user's voice for verification
@@ -168,6 +168,8 @@ def sign_in(auth_reqs: dict):
             st.subheader("Verification Result")
 
             if st.session_state.B_output is not None:
+                st.write('Waiting')
+                time.sleep(10)
                 st.write('Waiting')
                 # # Download user audio from firebase for verification
                 # audio_a = download_audio(username, firebase_storage)
