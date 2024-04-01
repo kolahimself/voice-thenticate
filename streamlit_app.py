@@ -100,12 +100,20 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             
     def on_logout_click():
         st.session_state["user"] = None
+
+    # Entry text field
+    username = st.text_input(label="Username", key='A1')
             
     if st.session_state.setdefault("user", None) is None:
-        # Entry text field
-        username = st.text_input(label="Username", key='A1')
+        # # Entry text field
+        # username = st.text_input(label="Username", key='A1')
         if username:
-            if st.button(label="Login", on_click=on_login_click, args=(username, reg_usernames)):
+            if st.button(label="Sign In",
+                         on_click=on_login_click, 
+                         args=(username, reg_usernames),
+                         key="A2",
+                         type="primary",
+                         use_container_width=True):
                 st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
             else: 
                 # Handle cases where no username is entered
