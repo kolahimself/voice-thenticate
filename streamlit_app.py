@@ -94,10 +94,6 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     """
     display_initial_app_info()
     
-    # Initialization of user state 
-    if 'user_state' not in st.session_state:
-        st.session_state['user_state'] = None
-    
     def on_sign_in_click(user, reg_usernames):
         if user in reg_usernames:
             st.session_state["user"] = user
@@ -368,6 +364,10 @@ if __name__ == "__main__":
 
     # Retrieve registered usernames
     registered_usernames = fetch_firebase_data(storage)
+
+    # Initialization of user state 
+    if 'user_state' not in st.session_state:
+        st.session_state['user_state'] = None
 
     # Display initial user interface
     user_state = display_initial_ui(registered_usernames, storage)
