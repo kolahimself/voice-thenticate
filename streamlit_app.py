@@ -98,22 +98,22 @@ def user_authentication():
     display_initial_app_info()
     
     def on_sign_in_click(user):
-        if user in st.session_state.sess_data['reg_users']:
+        if user in st.session_state.reg_users:
             st.session_state["user"] = user
-            st.session_state.sess_data['user_state'] = 'signing_in'
+            st.session_state.user_state = 'signing_in'
         else:
-            st.session_state.sess_data['user_state'] = None
+            st.session_state.user_state = None
             
     def on_signup_click(user):
-        if user not in st.session_state.sess_data['reg_users']:
+        if user not in st.session_state.reg_users:
             st.session_state["user"] = user
-            st.session_state.sess_data['user_state'] = 'signing_up'
+            st.session_state.user_state = 'signing_up'
         else:
-            st.session_state.sess_data['user_state'] = None
+            st.session_state.user_state = None
             
     def on_signout_click():
         st.session_state["user"] = None
-        st.session_state.sess_data['user_state'] = None
+        st.session_state.user_state = None
             
     if st.session_state.setdefault("user", None) is None:
         # Entry text field
@@ -318,12 +318,14 @@ if __name__ == "__main__":
     registered_usernames = fetch_firebase_data(storage)
 
     # Initialize session state containing context imformation in the app
-    if 'sess_data' not in st.session_state:
-        st.session_state['sess_data'] = {
-            'reg_users': registered_usernames,
-            'storage': storage,
-            'user_state': None
-        }
+    if 'reg_users' not in st.session_state:
+        st.session_state['reg_users'] = registered_usernames
+        
+    if 'storage' not in st.session_state:
+        st.session_state['storage'] = storage
+
+    if 'user_state' not in st.session_state:
+        st.session_state['user_state'] = None
     # init_session_state(storage, registered_usernames)
 
     # Initial user authentication
