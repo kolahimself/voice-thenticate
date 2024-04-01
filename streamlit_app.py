@@ -120,9 +120,9 @@ def display_initial_ui(reg_usernames: list) -> str:
     if sign_in_button:
         sign_in(username, reg_usernames, placeholders)
     
-    # elif sign_up_button:
-    #     # sign_up()
-    #     pass
+    elif sign_up_button:
+        sign_up()
+
 
 def sign_in(username, reg_usernames, placeholders):
     """
@@ -135,7 +135,7 @@ def sign_in(username, reg_usernames, placeholders):
         else:
             # Clear existing layout elements
             for placeholder in placeholders:
-                time.sleep(0.03)
+                time.sleep(0.001)
                 placeholder.empty()
             
     else:
