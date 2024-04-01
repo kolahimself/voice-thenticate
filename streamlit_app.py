@@ -24,15 +24,9 @@ def set_page_config():
     st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''',
                 unsafe_allow_html=True)
 
-def init_firebase_storage(config) -> pyrebase.storage.Storage:
+def init_firebase_storage() -> pyrebase.storage.Storage:
     """
     Initializes a Firebase app and returns the storage object.
-
-    This function establishes a connection to Firebase using the provided configuration
-    and returns the storage object for interacting with Firebase Storage.
-
-    Args:
-        config (dict): A dictionary containing Firebase project configuration details.
 
     Returns:
         pyrebase.storage.Storage: The initialized Firebase storage object.
@@ -74,10 +68,13 @@ def fetch_firebase_data(storage) -> list:
         return []  # Return an empty list on error
 
 
-def display_initial_ui() -> str:
+def display_initial_ui(reg_usernames: list) -> str:
     """
     Initial authentication page, retrieves the username of the user.
     Users can either sign in or sign up
+
+    Args:
+        reg_usernames: List containing all registered voices
     """
     set_page_config()  # Call page configuration function
 
@@ -101,7 +98,7 @@ def display_initial_ui() -> str:
             key="A2",
             type="primary",
             use_container_width=True,
-            on_click=sign_in
+            on_click=sign_in(username, reg_usernames)
         )
 
     with col_right:
@@ -112,10 +109,17 @@ def display_initial_ui() -> str:
             use_container_width=True,
             on_click=sign_up
         )
-    return username
 
-def sign_in():
-    pass
+def sign_in(username, reg_usernames):
+    """
+    Performs the sign-in processes, then directly moves to voice verification
+    """
+    if username:
+        if username not in registered_usernames:
+            st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
+    else:
+        # Handle cases where no username is entered
+        st.warning("Please enter a username to continue.")
 
 def sign_up():
     pass
@@ -202,6 +206,11 @@ def verify(audio_a, audio_b) -> None:
 
 
 if __name__ == "__main__":
-    # Call main function
-    # voice_thenticate()
-    username = display_initial_ui()
+    # Connect to firebase and get reference to storage
+    storage = init_firebase_storage()
+
+    # Retrieve registered usernames
+    registered_usernames = fetch_firebase_data(storage)
+
+    # Display initail user interface
+    display_initial_ui(registered_usernames)
