@@ -320,8 +320,8 @@ if __name__ == "__main__":
     # Initialize session state containing context imformation in the app
     if 'sess_data' not in st.session_state:
         st.session_state['sess_data'] = {
-            'reg_users': reg_users,
-            'storage': firebase_storage,
+            'reg_users': registered_usernames,
+            'storage': storage,
             'user_state': None
         }
     # init_session_state(storage, registered_usernames)
