@@ -98,7 +98,7 @@ def display_initial_ui(reg_usernames: list) -> str:
     # Entry text field
     username = placeholders[0].text_input(label="Username", key='A1')
         
-    with placeholders[2].container:
+    with placeholders[2]:
         col_left, col_right = st.columns(2)
         
         with col_left:
@@ -134,9 +134,9 @@ def sign_in(username, reg_usernames, placeholders):
 
         else:
             # Clear existing layout elements
-            placeholders[2].empty()
-            # for placeholder in placeholders:
-            #     placeholder.empty()
+            for placeholder in placeholders:
+                time.sleep(0.03)
+                placeholder.empty()
             
     else:
         # Handle cases where no username is entered
