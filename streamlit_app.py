@@ -160,7 +160,7 @@ def sign_in(auth_reqs: dict):
             audio_a = download_audio(username, firebase_storage)
             st.write('success!')
 
-            mic_recorder(
+            audio_output = mic_recorder(
                 start_prompt="Start recording ⏺️",
                 stop_prompt="Stop recording ⏹️",
                 just_once=False,  
