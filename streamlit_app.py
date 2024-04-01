@@ -100,6 +100,7 @@ def display_initial_ui(reg_usernames: list) -> str:
     # Sign in & Sign up buttons
     with st.empty():
         col_left, col_right = st.empty().columns(2)
+        
         with col_left:
             sign_in_button = st.empty().button(
                 label="Sign In",
@@ -108,13 +109,13 @@ def display_initial_ui(reg_usernames: list) -> str:
                 use_container_width=True
             )
 
-    # with col_right:
-    #     sign_up_button = placeholder.button(
-    #         label="Sign Up",
-    #         key="A3",
-    #         type="primary",
-    #         use_container_width=True
-        # )
+        with col_right:
+            sign_up_button = st.empty().button(
+                label="Sign Up",
+                key="A3",
+                type="primary",
+                use_container_width=True
+            )
     
     # if sign_in_button:
     #     # sign_in(username, reg_usernames)
