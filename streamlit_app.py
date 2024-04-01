@@ -53,7 +53,8 @@ def init_firebase_storage() -> pyrebase.pyrebase.Storage:
         'storageBucket': "voice-thenticate.appspot.com",
         'messagingSenderId': "583252692015",
         'appId': "1:583252692015:web:9615861360f2bcc69a8ada",
-        'measurementId': "G-KR9Z6EHF56"
+        'measurementId': "G-KR9Z6EHF56",
+        'serviceAccount': 'spice_cache/sitecha18afc6tnsv.json'
     }
 
     firebase = pyrebase.initialize_app(config)
