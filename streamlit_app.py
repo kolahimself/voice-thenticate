@@ -151,8 +151,6 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         st.button("Sign Out", on_click=on_signout_click, key='A4')
         st.success(f"Welcome {st.session_state['user']}, Your voice is your key – let's confirm it's you.")
     st.write(st.session_state.user_state)
-    
-    return user_state
         # mic_recorder(
         #         start_prompt="Start recording ⏺️",
         #         stop_prompt="Stop recording ⏹️",
@@ -370,4 +368,4 @@ if __name__ == "__main__":
         st.session_state['user_state'] = None
 
     # Display initial user interface
-    user_state = display_initial_ui(registered_usernames, storage)
+    display_initial_ui(registered_usernames, storage)
