@@ -92,7 +92,7 @@ def display_initial_ui(reg_usernames: list) -> str:
         reg_usernames: List containing all registered voices
     """
     with st.empty():
-        for seconds in range(60):
+        for seconds in range(10):
             st.write(f"⏳ {seconds} seconds have passed")
             time.sleep(1)
         st.write("✔️ 1 minute over!")
