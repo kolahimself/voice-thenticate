@@ -100,7 +100,7 @@ def display_initial_ui(reg_usernames: list) -> str:
         
     col_left, col_right = st.columns(2)
 
-    with placeholder[1]:
+    with placeholders[1]:
         with col_left:
             sign_in_button = st.button(
                 label="Sign In",
