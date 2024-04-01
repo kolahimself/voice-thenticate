@@ -117,12 +117,12 @@ def display_initial_ui(reg_usernames: list) -> str:
                 type="primary",
                 use_container_width=True
             )
-    # attempt clearing
-    placeholder.empty()
     
-    # if sign_in_button:
-    #     # sign_in(username, reg_usernames)
-    #     placeholder.empty()
+    if sign_in_button:
+        # sign_in(username, reg_usernames)
+        # attempt clearing
+        placeholder.empty()
+    
     # elif sign_up_button:
     #     # sign_up()
     #     pass
