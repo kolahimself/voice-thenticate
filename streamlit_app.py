@@ -111,7 +111,7 @@ def user_authentication():
             st.write(user)
             st.session_state.sess_data['user_state'] = 'signing_in'
         else:
-            st.write('a')
+            st.write(st.session_state.sess_data['reg_users'])
             st.session_state.sess_data['user_state'] = None
             
     def on_signup_click(user):
