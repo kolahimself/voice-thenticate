@@ -94,9 +94,10 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     """
     # Initial page state ("initial", "sign_in", or "sign_up")
     if "page" not in st.session_state:
-        st.session_state.page = 0  
-    st.write(st.session_state.page)
+        st.session_state.page = 0
 
+    def switch_to_sign_in_page(): st.session_state.page = 1
+    def switch_to_sign_up_page(): st.session_state.page = 2
     # if "page" not in st.session_state:
     #     st.session_state.page = 0
 
@@ -129,10 +130,12 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     #         st.write("This is the end")
     #         st.button("Restart",on_click=restart)
     display_initial_app_info()
-    # st.write(st.session_state.page)
     
     # placeholders = [st.empty() for _ in range(2)]
-        
+    placeholder = st.empty()
+
+    if st.session_state.page == 0:
+        username = placeholders.text_input(label="Username", key='A1')
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
         
