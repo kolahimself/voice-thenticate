@@ -82,9 +82,23 @@ def fetch_firebase_data(storage) -> list:
     except Exception as e:
         print(f"Error fetching data from Firebase: {e}")
         return []  # Return an empty list on error
+
+
+def init_session_state(firebase_storage, reg_users):
+    """
+    Sets up initial session state with relevant objects.
+    """
+    session_state_ctx = {
+        'reg_users': reg_users,
+        'storage': firebase_storage,
+        'user_state': None
+    }
+    
+    if 'sess_data' not in st.session_state:
+        st.session_state['sess_data'] = session_state_ctx
         
 
-def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
+def user_authentication(reg_usernames: list):
     """
     Initial authentication page, retrieves the username of the user.
     Users can either sign in or sign up
@@ -142,55 +156,8 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             st.warning("Please enter a username to continue.")
             
     else:
-        # Store authentication/verificaiton requirements
-        # auth_reqs = {
-        #     'username': {st.session_state['user']},
-        #     'registered_usernames': reg_usernames,
-        #     'firebase_storage': firebase_storage,
-        # }
         st.button("Sign Out", on_click=on_signout_click, key='A4')
         st.success(f"Welcome {st.session_state['user']}, Your voice is your key – let's confirm it's you.")
-    st.write(st.session_state.user_state)
-        # mic_recorder(
-        #         start_prompt="Start recording ⏺️",
-        #         stop_prompt="Stop recording ⏹️",
-        #         just_once=False,  
-        #         use_container_width=False,
-        #         format="wav",
-        #         key="B"
-        #     )
-        # # Download user audio from firebase for verification
-        # st.write('Downloading...')
-        # audio_a = download_audio(st.session_state['user'], firebase_storage)
-        # st.write('success!')
-    
-    # 
-    # username = placeholders[0].text_input(label="Username", key='A1')
-        
-    # with placeholders[1]:
-    #     col_left, col_right = st.columns(2)
-        
-    #     with col_left:
-    #         sign_in_button = st.button(
-    #             label="Sign In",
-    #             key="A2",
-    #             type="primary",
-    #             use_container_width=True
-    #         )
-    
-    #     with col_right:
-    #         sign_up_button = st.button(
-    #             label="Sign Up",
-    #             key="A3",
-    #             type="primary",
-    #             use_container_width=True
-    #         )
-    
-    # if sign_in_button:
-    #     sign_in(auth_reqs)
-    
-    # elif sign_up_button:
-    #     sign_up(auth_reqs)
 
 
 def sign_in(auth_reqs: dict):
@@ -363,9 +330,8 @@ if __name__ == "__main__":
     # Retrieve registered usernames
     registered_usernames = fetch_firebase_data(storage)
 
-    # Initialization of user state 
-    if 'user_state' not in st.session_state:
-        st.session_state['user_state'] = None
+    # Initialize session state containing context imformation in the app
+    init_session_state(storage, registered_usernames)
 
     # Display initial user interface
-    display_initial_ui(registered_usernames, storage)
+    # user_authentication(registered_usernames)
