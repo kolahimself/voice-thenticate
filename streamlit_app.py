@@ -83,12 +83,6 @@ def fetch_firebase_data(storage) -> list:
         return []  # Return an empty list on error
 
 
-def init_session_state(firebase_storage, reg_users):
-    """
-    Sets up initial session state with relevant objects.
-    """
-    pass
-
 def user_authentication(reg_users):
     """
     Initial authentication page, retrieves the username of the user.
@@ -175,8 +169,29 @@ def voice_auth_sign_in(firebase_storage):
         verify(audio_a, st.session_state.MC_I_output["bytes"])
         
 
-def sign_up(auth_reqs: dict):
-    pass
+def voice_auth_sign_up(firebase_storage):
+    """
+    Voice verification for a new user
+    """
+    # Section for recording initial user (owner) voice
+    st.subheader("Set Up Your Voice ID")
+
+    mic_recorder(
+        start_prompt="Start recording ⏺️",
+        stop_prompt="Stop recording ⏹️",
+        just_once=False,  
+        use_container_width=False,
+        format="wav",
+        key="MIC_XC"
+    )
+
+def upload_audio(audio_file, username, firebase_storage):
+    """
+    Upload's the recorded audio to firebase as reference for signing in
+    """
+    path_on_cloud = str(username) + ".wav"
+    firebase_storage.child(path_on_cloud).put(audio_file)
+
 
 def download_audio(username, firebase_storage):
     """
@@ -220,25 +235,6 @@ def save_audio_as_wav(audio_bytes):
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_file:
         temp_file.write(audio_bytes)
         return temp_file.name
-
-
-def voice_thenticate():
-    """
-    Displays the user interface for voice authentication demonstration.
-
-    This function builds the Streamlit layout for voice enrollment and verification.
-    """
-    # Section for recording initial user (owner) voice
-    st.subheader("Set Up Your Voice ID")
-
-    mic_recorder(
-        start_prompt="Start recording ⏺️",
-        stop_prompt="Stop recording ⏹️",
-        just_once=False,  
-        use_container_width=False,
-        format="wav",
-        key="A"
-    )
 
 
 def verify(audio_a, audio_b):
