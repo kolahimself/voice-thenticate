@@ -3,4 +3,4 @@ speechbrain
 torchaudio==2.0.1
 ffmpeg
 PySoundFile
-pyrebase3
+pyrebase4
