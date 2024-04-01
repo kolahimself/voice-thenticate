@@ -106,6 +106,7 @@ def user_authentication():
     display_initial_app_info()
     
     def on_sign_in_click(user):
+        st.write(st.session_state.sess_data['reg_users'])
         if user in st.session_state.sess_data['reg_users']:
             st.session_state["user"] = user
             st.session_state.sess_data['user_state'] = 'signing_in'
