@@ -38,7 +38,7 @@ def display_initial_app_info():
     st.write("\n")  # Space for better readability
 
 
-def init_firebase_storage():
+def init_firebase_storage() -> pyrebase.pyrebase.Storage:
     """
     Initializes a Firebase app and returns the storage object.
 
