@@ -134,7 +134,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     # placeholders = [st.empty() for _ in range(2)]
     placeholder = st.empty()
 
-    if st.session_state.page == 0:
+    if st.session_state.page == 4:
         username = placeholder.text_input(label="Username", key='A1')
         col_left, col_right = st.columns(2)
         with col_left:
