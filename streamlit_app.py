@@ -72,14 +72,15 @@ def fetch_firebase_data(storage) -> list:
     Returns:
         list: A list of file names within the specified folder, or an empty list if no files are found.
     """    
-    files = storage.list_files()
-    file_names = [file.name.split('.')[0] for file in files]
-    sample_list = ['lanre', 'darrow']
-    st.write(sample_list)
-    return file_names
+    try:
+        files = storage.list_files(folder_path)
+        file_names = [file.name.split('.')[0] for file in files]  # Extract filename without extension
+        return file_names
         
-    
-
+    except Exception as e:
+        print(f"Error fetching data from Firebase: {e}")
+        return []  # Return an empty list on error
+        
 
 def display_initial_ui(reg_usernames: list) -> str:
     """
@@ -131,7 +132,7 @@ def sign_in(username, reg_usernames):
 
         else:
             # Clear existing layout elements
-            st.empty()
+            st.write('I'm here')
     else:
         # Handle cases where no username is entered
         st.warning("Please enter a username to continue.")
