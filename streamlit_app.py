@@ -73,8 +73,8 @@ def fetch_firebase_data(storage) -> list:
         list: A list of file names within the specified folder, or an empty list if no files are found.
     """    
     files = storage.list_files()
-    st.write(files)
     file_names = [file.name.split('.')[0] for file in files]
+    st.write(file_names)
     return file_names
         
     
