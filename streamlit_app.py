@@ -94,35 +94,35 @@ def display_initial_ui(reg_usernames: list) -> str:
     placeholder = st.empty()
     placeholder.text('aarghh')
     display_initial_app_info()
-    # placeholder.empty()
     
-    # Entry text field
-    # username = st.text_input(label="Username", key='A1')
+    Entry text field
+    username = st.text_input(label="Username", key='A1')
 
-    # # Sign in & Sign up buttons
-    # col_left, col_right = st.columns(2)
+    # Sign in & Sign up buttons
+    col_left, col_right = st.columns(2)
 
-    # with col_left:
-    #     sign_in_button = st.button(
-    #         label="Sign In",
-    #         key="A2",
-    #         type="primary",
-    #         use_container_width=True
-    #     )
+    with col_left:
+        sign_in_button = st.button(
+            label="Sign In",
+            key="A2",
+            type="primary",
+            use_container_width=True
+        )
 
-    # with col_right:
-    #     sign_up_button = st.button(
-    #         label="Sign Up",
-    #         key="A3",
-    #         type="primary",
-    #         use_container_width=True
-    #     )
-    # placeholder = st.empty()
-    # if sign_in_button:
-    #     sign_in(username, reg_usernames, placeholder)
+    with col_right:
+        sign_up_button = st.button(
+            label="Sign Up",
+            key="A3",
+            type="primary",
+            use_container_width=True
+        )
+    
+    if sign_in_button:
+        # sign_in(username, reg_usernames, placeholder)
+        placeholder.empty()
         
-    # elif sign_up_button:
-    #     sign_up()
+    elif sign_up_button:
+        sign_up()
     
 
 def sign_in(username, reg_usernames, placeholder):
