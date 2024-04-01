@@ -155,7 +155,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             switch_to_sign_in_page()
             # sign_in(auth_reqs)
         elif sign_up_button:
-            switch_to_sign_up_page
+            switch_to_sign_up_page()
 
     elif st.session_state.page == 1:
         placeholder.empty()
