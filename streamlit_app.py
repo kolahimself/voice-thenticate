@@ -100,7 +100,7 @@ def display_initial_ui(reg_usernames: list) -> str:
         
     col_left, col_right = st.columns(2)
 
-    with (placeholders[1], placeholders[2]):
+    with (placeholders[2]):
         with col_left:
             sign_in_button = st.button(
                 label="Sign In",
@@ -134,8 +134,9 @@ def sign_in(username, reg_usernames, placeholders):
 
         else:
             # Clear existing layout elements
-            for placeholder in placeholders:
-                placeholder.empty()
+            placeholders[2].empty()
+            # for placeholder in placeholders:
+            #     placeholder.empty()
             
     else:
         # Handle cases where no username is entered
