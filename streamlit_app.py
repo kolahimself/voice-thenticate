@@ -127,6 +127,7 @@ def sign_in(username, reg_usernames):
     """
     Performs the sign-in processes, then directly moves to voice verification
     """
+    st.write(reg_usernames)
     if username:
         if username not in reg_usernames:
             st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
