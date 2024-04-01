@@ -10,6 +10,7 @@ import tempfile
 import pyrebase
 from streamlit_mic_recorder import mic_recorder
 from speechbrain.inference.speaker import SpeakerRecognition
+import time
 
 # **App Configuration**
 def set_page_config():
@@ -90,9 +91,14 @@ def display_initial_ui(reg_usernames: list) -> str:
     Args:
         reg_usernames: List containing all registered voices
     """
-    placeholder = st.empty()
-    display_initial_app_info(placeholder)
-    placeholder.empty()
+    with st.empty():
+        for seconds in range(60):
+            st.write(f"⏳ {seconds} seconds have passed")
+            time.sleep(1)
+        st.write("✔️ 1 minute over!")
+    # placeholder = st.empty()
+    # display_initial_app_info(placeholder)
+    # placeholder.empty()
     
     # Entry text field
     # username = st.text_input(label="Username", key='A1')
