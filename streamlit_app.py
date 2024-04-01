@@ -25,17 +25,17 @@ def set_page_config():
                 unsafe_allow_html=True)
 
 
-def display_initial_app_info():
+def display_initial_app_info(placeholder):
     """
     Displays the initial title, information, and formatting for the app.
     """
     # Display the title and information
-    st.title("voice-thenticate")
-    st.markdown(
+    placeholder.title("voice-thenticate")
+    placeholder.markdown(
         'A demonstration of speaker verification using [SpeechBrain](https://speechbrain.github.io/).'
         ' View project source code on [GitHub](https://github.com/kolahimself/voice-thenticate).'
     )
-    st.write("\n")  # Space for better readability
+    placeholder.write("\n")  # Space for better readability
 
 
 def init_firebase_storage() -> pyrebase.pyrebase.Storage:
@@ -90,35 +90,36 @@ def display_initial_ui(reg_usernames: list) -> str:
     Args:
         reg_usernames: List containing all registered voices
     """
-    display_initial_app_info()
+    placeholder = st.empty()
+    display_initial_app_info(placeholder)
     
     # Entry text field
-    username = st.text_input(label="Username", key='A1')
+    # username = st.text_input(label="Username", key='A1')
 
-    # Sign in & Sign up buttons
-    col_left, col_right = st.columns(2)
+    # # Sign in & Sign up buttons
+    # col_left, col_right = st.columns(2)
 
-    with col_left:
-        sign_in_button = st.button(
-            label="Sign In",
-            key="A2",
-            type="primary",
-            use_container_width=True
-        )
+    # with col_left:
+    #     sign_in_button = st.button(
+    #         label="Sign In",
+    #         key="A2",
+    #         type="primary",
+    #         use_container_width=True
+    #     )
 
-    with col_right:
-        sign_up_button = st.button(
-            label="Sign Up",
-            key="A3",
-            type="primary",
-            use_container_width=True
-        )
-    placeholder = st.empty()
-    if sign_in_button:
-        sign_in(username, reg_usernames, placeholder)
+    # with col_right:
+    #     sign_up_button = st.button(
+    #         label="Sign Up",
+    #         key="A3",
+    #         type="primary",
+    #         use_container_width=True
+    #     )
+    # placeholder = st.empty()
+    # if sign_in_button:
+    #     sign_in(username, reg_usernames, placeholder)
         
-    elif sign_up_button:
-        sign_up()
+    # elif sign_up_button:
+    #     sign_up()
     
 
 def sign_in(username, reg_usernames, placeholder):
