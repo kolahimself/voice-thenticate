@@ -135,7 +135,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     placeholder = st.empty()
 
     if st.session_state.page == 0:
-        username = placeholders.text_input(label="Username", key='A1')
+        username = placeholder.text_input(label="Username", key='A1')
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
         
