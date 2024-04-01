@@ -113,9 +113,9 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
                          type="primary",
                          use_container_width=True):
                 st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
-            else: 
-                # Handle cases where no username is entered
-                st.warning("Please enter a username to continue.")
+        else: 
+            # Handle cases where no username is entered
+            st.warning("Please enter a username to continue.")
             
     else:
         # Store authentication/verificaiton requirements
