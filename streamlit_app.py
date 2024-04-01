@@ -92,15 +92,16 @@ def display_initial_ui(reg_usernames: list) -> str:
         reg_usernames: List containing all registered voices
     """
     display_initial_app_info()
-    placeholder = st.empty()
+    
+    placeholders = [st.empty() for _ in ringe(4)]
         
     # Entry text field
-    username = placeholder.text_input(label="Username", key='A1')
+    username = placeholders[0].text_input(label="Username", key='A1')
         
-    col_left, col_right = st.empty().columns(2)
+    col_left, col_right = placeholders[1].columns(2)
         
     with col_left:
-        sign_in_button = st.empty().button(
+        sign_in_button = placeholders[2].button(
             label="Sign In",
             key="A2",
             type="primary",
