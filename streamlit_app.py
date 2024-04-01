@@ -91,8 +91,6 @@ def display_initial_ui(reg_usernames: list) -> str:
     Args:
         reg_usernames: List containing all registered voices
     """
-    placeholder = st.empty()
-    placeholder.text('aarghh')
     display_initial_app_info()
     
     # Entry text field
@@ -118,14 +116,13 @@ def display_initial_ui(reg_usernames: list) -> str:
         )
     
     if sign_in_button:
-        # sign_in(username, reg_usernames, placeholder)
-        placeholder.empty()
+        sign_in(username, reg_usernames)
         
     elif sign_up_button:
         sign_up()
     
 
-def sign_in(username, reg_usernames, placeholder):
+def sign_in(username, reg_usernames):
     """
     Performs the sign-in processes, then directly moves to voice verification
     """
@@ -135,7 +132,7 @@ def sign_in(username, reg_usernames, placeholder):
 
         else:
             # Clear existing layout elements
-            placeholder.empty()
+            st.experimental_rerun()
             
     else:
         # Handle cases where no username is entered
