@@ -100,13 +100,11 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             
     def on_logout_click():
         st.session_state["user"] = None
-
-    # Entry text field
-    username = st.text_input(label="Username", key='A1')
             
     if st.session_state.setdefault("user", None) is None:
-        # # Entry text field
-        # username = st.text_input(label="Username", key='A1')
+        # Entry text field
+        username = st.text_input(label="Username", key='A1')
+        
         if username:
             if st.button(label="Sign In",
                          on_click=on_login_click, 
@@ -121,12 +119,12 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             
     else:
         # Store authentication/verificaiton requirements
-        auth_reqs = {
-            'username': username,
-            'registered_usernames': reg_usernames,
-            'placeholders': placeholders,
-            'firebase_storage': firebase_storage,
-        }
+        # auth_reqs = {
+        #     'username': username,
+        #     'registered_usernames': reg_usernames,
+        #     'placeholders': placeholders,
+        #     'firebase_storage': firebase_storage,
+        # }
         
         st.success(f"Welcome, {st.session_state['user']}")
         st.button("Logout", on_click=on_logout_click)
