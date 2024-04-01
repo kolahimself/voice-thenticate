@@ -24,7 +24,7 @@ def set_page_config():
     st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''',
                 unsafe_allow_html=True)
 
-def init_firebase_storage() -> pyrebase.storage.Storage:
+def init_firebase_storage():
     """
     Initializes a Firebase app and returns the storage object.
 
