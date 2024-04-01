@@ -99,22 +99,21 @@ def display_initial_ui(reg_usernames: list) -> str:
     username = placeholder.text_input(label="Username", key='A1')
 
     # Sign in & Sign up buttons
-    col_left, col_right = placeholder.columns(2)
+    # col_left, col_right = placeholder.columns(2)
 
-    with col_left:
-        sign_in_button = placeholder.button(
-            label="Sign In",
-            key="A2",
-            type="primary",
-            use_container_width=True
-        )
+    sign_in_button = placeholder.button(
+        label="Sign In",
+        key="A2",
+        type="primary",
+        use_container_width=True
+    )
 
-    with col_right:
-        sign_up_button = placeholder.button(
-            label="Sign Up",
-            key="A3",
-            type="primary",
-            use_container_width=True
+    # with col_right:
+    #     sign_up_button = placeholder.button(
+    #         label="Sign Up",
+    #         key="A3",
+    #         type="primary",
+    #         use_container_width=True
         )
     
     if sign_in_button:
