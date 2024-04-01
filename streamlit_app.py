@@ -158,9 +158,11 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             switch_to_sign_up_page()
 
     elif st.session_state.page == 1:
+        st.write(st.session_state.page)
         placeholder.empty()
 
     elif st.session_state.page == 2:
+        st.write(st.session_state.page)
         placeholder.empty()
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
