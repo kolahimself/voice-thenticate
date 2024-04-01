@@ -106,16 +106,15 @@ def user_authentication():
     display_initial_app_info()
     
     def on_sign_in_click(user):
-        if user in st.session_state.sess_data['reg_users']:
+        if user not in st.session_state.sess_data['reg_users']:
             st.session_state["user"] = user
-            st.write(user)
             st.session_state.sess_data['user_state'] = 'signing_in'
         else:
             st.write(user in st.session_state.sess_data['reg_users'])
             st.session_state.sess_data['user_state'] = None
             
     def on_signup_click(user):
-        if user not in st.session_state.sess_data['reg_users']:
+        if user in st.session_state.sess_data['reg_users']:
             st.session_state["user"] = user
             st.session_state.sess_data['user_state'] = 'signing_up'
         else:
