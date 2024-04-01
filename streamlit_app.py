@@ -73,7 +73,7 @@ def fetch_firebase_data(storage) -> list:
     Returns:
         list: A list of file names within the specified folder, or an empty list if no files are found.
     """
-    folder_path = '/reg_voices'
+    folder_path = 'reg_voices'
     try:
         files = storage.list_files(folder_path)
         file_names = [file.name.split('.')[0] for file in files]
