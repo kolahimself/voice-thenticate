@@ -101,7 +101,7 @@ def display_initial_ui(reg_usernames: list) -> str:
     col_left, col_right = st.columns(2)
         
     with col_left:
-        sign_in_button = st.button(
+        sign_in_button = placeholder[1].button(
             label="Sign In",
             key="A2",
             type="primary",
