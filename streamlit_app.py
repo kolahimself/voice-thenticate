@@ -131,15 +131,13 @@ def user_authentication():
             col_left, col_right = st.columns(2)
             with col_left:
                 sign_in_button = st.button(label="Sign In",
-                         on_click=on_sign_in_click, 
-                         args=(username),
+                         on_click=on_sign_in_click(username), 
                          key="A2",
                          type="primary",
                          use_container_width=True)
             with col_right:
                 sign_up_button = st.button(label="Sign Up",
-                         on_click=on_signup_click, 
-                         args=(username),
+                         on_click=on_signup_click(username), 
                          key="A3",
                          type="primary",
                          use_container_width=True)
