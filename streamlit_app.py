@@ -125,7 +125,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     #         st.write("This is the end")
     #         st.button("Restart",on_click=restart)
     display_initial_app_info()
-    st.write('FFFFF')
+    st.write(st.session_state.page)
     
     # placeholders = [st.empty() for _ in range(2)]
         
@@ -339,6 +339,7 @@ if __name__ == "__main__":
     # Initial page state ("initial", "sign_in", or "sign_up")
     if "page" not in st.session_state:
         st.session_state.page = "initial"  
+        st.write(session_state.page)
 
-    # Display initail user interface
+    # Display initial user interface
     display_initial_ui(registered_usernames, storage)
