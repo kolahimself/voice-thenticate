@@ -92,57 +92,34 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     Args:
         reg_usernames: List containing all registered voices
     """
-    # Initial page state ("initial", "sign_in", or "sign_up")
-    # if "page" not in st.session_state:
-    #     st.session_state.page = 0
-
-    # def switch_to_sign_in_page(): st.session_state.page = 1
-    # def switch_to_sign_up_page(): st.session_state.page = 2
-    # if "page" not in st.session_state:
-    #     st.session_state.page = 0
-
-    # def nextpage(): st.session_state.page += 1
-    # def restart(): st.session_state.page = 0
-
-    # placeholder = st.empty()
-    # st.button("Next",on_click=nextpage,disabled=(st.session_state.page > 3))
-
-    # if st.session_state.page == 0:
-    #     # Replace the placeholder with some text:
-    #     placeholder.text(f"Hello, this is page {st.session_state.page}")
-
-    # elif st.session_state.page == 1:
-    #     # Replace the text with a chart:
-    #     placeholder.line_chart({"data": [1, 5, 2, 6]})
-
-    # elif st.session_state.page == 2:
-    #     # Replace the chart with several elements:
-    #     with placeholder.container():
-    #         st.write("This is one element")
-    #         st.write("This is another")
-    #         st.metric("Page:", value=st.session_state.page)
-
-    # elif st.session_state.page == 3:
-    #     placeholder.markdown(r"$f(x) = \exp{\left(x^🐈\right)}$")
-
-    # else:
-    #     with placeholder:
-    #         st.write("This is the end")
-    #         st.button("Restart",on_click=restart)
     display_initial_app_info()
     
-    # placeholders = [st.empty() for _ in range(2)]
     def on_login_click(user, reg_usernames):
         if user in reg_usernames:
             st.session_state["user"] = user
+            
     def on_logout_click():
         st.session_state["user"] = None
             
     if st.session_state.setdefault("user", None) is None:
+        # Entry text field
         username = st.text_input(label="Username", key='A1')
-        if st.button(label="Login", on_click=on_login_click, args=(username, reg_usernames)):
-            st.error("Invalid user name or password.")
+        if username:
+            if st.button(label="Login", on_click=on_login_click, args=(username, reg_usernames)):
+                st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
+            else: 
+                # Handle cases where no username is entered
+                st.warning("Please enter a username to continue.")
+            
     else:
+        # Store authentication/verificaiton requirements
+        auth_reqs = {
+            'username': username,
+            'registered_usernames': reg_usernames,
+            'placeholders': placeholders,
+            'firebase_storage': firebase_storage,
+        }
+        
         st.success(f"Welcome, {st.session_state['user']}")
         st.button("Logout", on_click=on_logout_click)
         mic_recorder(
@@ -158,7 +135,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         audio_a = download_audio(st.session_state['user'], firebase_storage)
         st.write('success!')
     
-    # # Entry text field
+    # 
     # username = placeholders[0].text_input(label="Username", key='A1')
         
     # with placeholders[1]:
@@ -179,14 +156,6 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     #             type="primary",
     #             use_container_width=True
     #         )
-
-    # # Store authentication/verificaiton requirements
-    # auth_reqs = {
-    #     'username': username,
-    #     'registered_usernames': reg_usernames,
-    #     'placeholders': placeholders,
-    #     'firebase_storage': firebase_storage,
-    # }
     
     # if sign_in_button:
     #     sign_in(auth_reqs)
