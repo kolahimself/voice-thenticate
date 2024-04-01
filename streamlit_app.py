@@ -92,22 +92,7 @@ def display_initial_ui(reg_usernames: list) -> str:
         reg_usernames: List containing all registered voices
     """
     placeholder = st.empty()
-
-    # Replace the placeholder with some text:
-    placeholder.text("Hello")
-
-    # Replace the text with a chart:
-    placeholder.line_chart({"data": [1, 5, 2, 6]})
-
-    # Replace the chart with several elements:
-    with placeholder.container():
-        st.write("This is one element")
-        st.write("This is another")
-
-    # Clear all those elements:
-    placeholder.empty()
-    # placeholder = st.empty()
-    # display_initial_app_info(placeholder)
+    display_initial_app_info(placeholder)
     # placeholder.empty()
     
     # Entry text field
