@@ -96,7 +96,7 @@ def display_initial_ui(reg_usernames: list) -> str:
     placeholders = [st.empty() for _ in range(4)]
         
     # Entry text field
-    username = placeholders[0].text_input(label="Username", key='A1')
+    username = st.text_input(label="Username", key='A1')
         
     col_left, col_right = st.columns(2)
 
