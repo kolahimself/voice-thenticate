@@ -119,9 +119,9 @@ def display_initial_ui(reg_usernames: list) -> str:
     if sign_in_button:
         # sign_in(username, reg_usernames)
         pass
-    elif sign_up_button:
-        # sign_up()
-        pass
+    # elif sign_up_button:
+    #     # sign_up()
+    #     pass
 
 def sign_in(username, reg_usernames):
     """
