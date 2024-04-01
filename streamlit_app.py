@@ -92,42 +92,74 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     Args:
         reg_usernames: List containing all registered voices
     """
-    display_initial_app_info()
-    
-    placeholders = [st.empty() for _ in range(2)]
-        
-    # Entry text field
-    username = placeholders[0].text_input(label="Username", key='A1')
-        
-    with placeholders[1]:
-        col_left, col_right = st.columns(2)
-        
-        with col_left:
-            sign_in_button = st.button(
-                label="Sign In",
-                key="A2",
-                type="primary",
-                use_container_width=True
-            )
-    
-        # with col_right:
-        #     sign_up_button = st.button(
-        #         label="Sign Up",
-        #         key="A3",
-        #         type="primary",
-        #         use_container_width=True
-        #     )
 
-    # Store authentication/verificaiton requirements
-    auth_reqs = {
-        'username': username,
-        'registered_usernames': reg_usernames,
-        'placeholders': placeholders,
-        'firebase_storage': firebase_storage,
-    }
+    if "page" not in st.session_state:
+        st.session_state.page = 0
+
+    def nextpage(): st.session_state.page += 1
+    def restart(): st.session_state.page = 0
+
+    placeholder = st.empty()
+    st.button("Next",on_click=nextpage,disabled=(st.session_state.page > 3))
+
+    if st.session_state.page == 0:
+        # Replace the placeholder with some text:
+        placeholder.text(f"Hello, this is page {st.session_state.page}")
+
+    elif st.session_state.page == 1:
+        # Replace the text with a chart:
+        placeholder.line_chart({"data": [1, 5, 2, 6]})
+
+    elif st.session_state.page == 2:
+        # Replace the chart with several elements:
+        with placeholder.container():
+            st.write("This is one element")
+            st.write("This is another")
+            st.metric("Page:", value=st.session_state.page)
+
+    elif st.session_state.page == 3:
+        placeholder.markdown(r"$f(x) = \exp{\left(x^🐈\right)}$")
+
+    else:
+        with placeholder:
+            st.write("This is the end")
+            st.button("Restart",on_click=restart)
+    # display_initial_app_info()
     
-    if sign_in_button:
-        sign_in(auth_reqs)
+    # placeholders = [st.empty() for _ in range(2)]
+        
+    # # Entry text field
+    # username = placeholders[0].text_input(label="Username", key='A1')
+        
+    # with placeholders[1]:
+    #     col_left, col_right = st.columns(2)
+        
+    #     with col_left:
+    #         sign_in_button = st.button(
+    #             label="Sign In",
+    #             key="A2",
+    #             type="primary",
+    #             use_container_width=True
+    #         )
+    
+    #     with col_right:
+    #         sign_up_button = st.button(
+    #             label="Sign Up",
+    #             key="A3",
+    #             type="primary",
+    #             use_container_width=True
+    #         )
+
+    # # Store authentication/verificaiton requirements
+    # auth_reqs = {
+    #     'username': username,
+    #     'registered_usernames': reg_usernames,
+    #     'placeholders': placeholders,
+    #     'firebase_storage': firebase_storage,
+    # }
+    
+    # if sign_in_button:
+    #     sign_in(auth_reqs)
     
     # elif sign_up_button:
     #     sign_up(auth_reqs)
