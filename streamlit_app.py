@@ -99,9 +99,9 @@ def display_initial_ui(reg_usernames: list) -> str:
 
     # Sign in & Sign up buttons
     with st.empty():
-        col_left, col_right = placeholder.columns(2)
+        col_left, col_right = st.empty().columns(2)
         with col_left:
-            sign_in_button = placeholder.button(
+            sign_in_button = st.empty().button(
                 label="Sign In",
                 key="A2",
                 type="primary",
