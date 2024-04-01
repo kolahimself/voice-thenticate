@@ -26,17 +26,17 @@ def set_page_config():
                 unsafe_allow_html=True)
 
 
-def display_initial_app_info(placeholder):
+def display_initial_app_info():
     """
     Displays the initial title, information, and formatting for the app.
     """
     # Display the title and information
-    placeholder.title("voice-thenticate")
-    placeholder.markdown(
+    st.title("voice-thenticate")
+    st.markdown(
         'A demonstration of speaker verification using [SpeechBrain](https://speechbrain.github.io/).'
         ' View project source code on [GitHub](https://github.com/kolahimself/voice-thenticate).'
     )
-    placeholder.write("\n")  # Space for better readability
+    st.write("\n")  # Space for better readability
 
 
 def init_firebase_storage() -> pyrebase.pyrebase.Storage:
@@ -93,7 +93,7 @@ def display_initial_ui(reg_usernames: list) -> str:
     """
     placeholder = st.empty()
     placeholder.text('aarghh')
-    display_initial_app_info(placeholder)
+    display_initial_app_info()
     # placeholder.empty()
     
     # Entry text field
