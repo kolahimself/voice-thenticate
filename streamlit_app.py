@@ -169,7 +169,7 @@ def sign_in(auth_reqs: dict):
 
             if st.session_state.B_output is not None:
                 st.write('Waiting')
-                time.sleep(10)
+                time.sleep(100000000000000)
                 st.write('Waiting')
                 # # Download user audio from firebase for verification
                 # audio_a = download_audio(username, firebase_storage)
