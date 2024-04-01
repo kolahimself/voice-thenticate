@@ -98,33 +98,30 @@ def init_session_state(firebase_storage, reg_users):
         st.session_state['sess_data'] = session_state_ctx
         
 
-def user_authentication(reg_usernames: list):
+def user_authentication():
     """
     Initial authentication page, retrieves the username of the user.
     Users can either sign in or sign up
-
-    Args:
-        reg_usernames: List containing all registered voices
     """
     display_initial_app_info()
     
-    def on_sign_in_click(user, reg_usernames):
-        if user in reg_usernames:
+    def on_sign_in_click(user):
+        if user in st.session_state.sess_data['reg_users']:
             st.session_state["user"] = user
-            st.session_state.user_state = 'signing_in'
+            st.session_state.sess_data['user_state'] = 'signing_in'
         else:
-            st.session_state.user_state = None
+            st.session_state.sess_data['user_state'] = None
             
-    def on_signup_click(user, reg_usernames):
-        if user not in reg_usernames:
+    def on_signup_click(user):
+        if user not in st.session_state.sess_data['reg_users']:
             st.session_state["user"] = user
-            st.session_state.user_state = 'signing_up'
+            st.session_state.sess_data['user_state'] = 'signing_up'
         else:
-            st.session_state.user_state = None
+            st.session_state.sess_data['user_state'] = None
             
     def on_signout_click():
         st.session_state["user"] = None
-        st.session_state.user_state = None
+        st.session_state.sess_data['user_state'] = None
             
     if st.session_state.setdefault("user", None) is None:
         # Entry text field
@@ -135,14 +132,14 @@ def user_authentication(reg_usernames: list):
             with col_left:
                 sign_in_button = st.button(label="Sign In",
                          on_click=on_sign_in_click, 
-                         args=(username, reg_usernames),
+                         args=(username),
                          key="A2",
                          type="primary",
                          use_container_width=True)
             with col_right:
                 sign_up_button = st.button(label="Sign Up",
                          on_click=on_signup_click, 
-                         args=(username, reg_usernames),
+                         args=(username),
                          key="A3",
                          type="primary",
                          use_container_width=True)
@@ -333,7 +330,5 @@ if __name__ == "__main__":
     # Initialize session state containing context imformation in the app
     init_session_state(storage, registered_usernames)
 
-    st.write(st.session_state.sess_data)
-
-    # Display initial user interface
-    # user_authentication(registered_usernames)
+    # Initial user authentication
+    user_authentication()
