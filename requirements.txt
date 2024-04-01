@@ -1,4 +1,5 @@
 streamlit-mic-recorder
+streamlit-audiorec
 speechbrain
 torchaudio==2.0.1
 ffmpeg
