@@ -92,8 +92,9 @@ def display_initial_ui(reg_usernames: list) -> str:
         reg_usernames: List containing all registered voices
     """
     display_initial_app_info()
+    placeholder = st.empty()
 
-    with st.empty():
+    with placeholder:
         # Entry text field
         username = st.text_input(label="Username", key='A1')
 
@@ -117,7 +118,7 @@ def display_initial_ui(reg_usernames: list) -> str:
                 use_container_width=True
             )
     # attempt clearing
-    st.empty().empty()
+    placeholder.empty()
     
     # if sign_in_button:
     #     # sign_in(username, reg_usernames)
