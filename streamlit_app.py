@@ -137,7 +137,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         if st.button(label="Login"):
             st.error("Invalid user name or password.")
     else:
-        st.success(f"Welcome, {James!")
+        st.success(f"Welcome, {James}")
         st.button("Logout")
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
