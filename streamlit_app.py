@@ -108,24 +108,22 @@ def display_initial_ui(reg_usernames: list) -> str:
             use_container_width=True
         )
 
-        # with col_right:
-        #     sign_up_button = st.empty().button(
-        #         label="Sign Up",
-        #         key="A3",
-        #         type="primary",
-        #         use_container_width=True
-        #     )
+        with col_right:
+            sign_up_button = placeholders[2].button(
+                label="Sign Up",
+                key="A3",
+                type="primary",
+                use_container_width=True
+            )
     
-    # if sign_in_button:
-        # sign_in(username, reg_usernames)
-        # attempt clearing
-        # placeholder.empty()
+    if sign_in_button:
+        sign_in(username, reg_usernames, placeholders)
     
     # elif sign_up_button:
     #     # sign_up()
     #     pass
 
-def sign_in(username, reg_usernames):
+def sign_in(username, reg_usernames, placeholders):
     """
     Performs the sign-in processes, then directly moves to voice verification
     """
@@ -135,7 +133,7 @@ def sign_in(username, reg_usernames):
 
         else:
             # Clear existing layout elements
-            st.experimental_rerun()
+            [placeholder.empty() for placeholder in placeholders]
             
     else:
         # Handle cases where no username is entered
