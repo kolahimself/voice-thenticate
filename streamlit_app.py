@@ -76,7 +76,7 @@ def fetch_firebase_data(storage) -> list:
     """
     try:
         files = storage.list_files()
-        st.write(files)
+        print(files)
         file_names = [file.name.split('.')[0] for file in files]
         return file_names
         
