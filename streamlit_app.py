@@ -92,6 +92,7 @@ def display_initial_ui(reg_usernames: list) -> str:
         reg_usernames: List containing all registered voices
     """
     placeholder = st.empty()
+    placeholder.text('aarghh')
     display_initial_app_info(placeholder)
     # placeholder.empty()
     
