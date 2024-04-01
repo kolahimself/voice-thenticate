@@ -140,7 +140,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         st.success(f"Welcome, {James}")
         st.button("Logout")
     def on_login_click(user, reg_usernames):
-        if user is in reg_usernames:
+        if user in reg_usernames:
             st.session_state["user"] = user
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
