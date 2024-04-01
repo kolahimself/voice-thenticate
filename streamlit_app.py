@@ -29,8 +29,6 @@ def display_initial_app_info():
     """
     Displays the initial title, information, and formatting for the app.
     """
-    set_page_config()  # Call page configuration function
-
     # Display the title and information
     st.title("voice-thenticate")
     st.markdown(
@@ -224,6 +222,9 @@ def verify(audio_a, audio_b) -> None:
 
 
 if __name__ == "__main__":
+    # Call page configuration function
+    set_page_config()  
+    
     # Connect to firebase and get reference to storage
     storage = init_firebase_storage()
     st.write('ÁSDSDDSS')
