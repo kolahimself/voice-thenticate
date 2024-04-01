@@ -93,26 +93,24 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         reg_usernames: List containing all registered voices
     """
     display_initial_app_info()
-
-    user_state = None
     
     def on_sign_in_click(user, reg_usernames):
         if user in reg_usernames:
             st.session_state["user"] = user
             user_state = 'signing_in'
         else:
-            user_state = None
+            st.session_state.user_state = None
             
     def on_signup_click(user, reg_usernames):
         if user not in reg_usernames:
             st.session_state["user"] = user
-            user_state = 'signing_up'
+            st.session_state.user_state = 'signing_up'
         else:
-            user_state = None
+            st.session_state.user_state = None
             
     def on_signout_click():
         st.session_state["user"] = None
-        user_state = None
+        st.session_state.user_state = None
             
     if st.session_state.setdefault("user", None) is None:
         # Entry text field
@@ -138,7 +136,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             if sign_in_button:
                 st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
             elif sign_up_button:
-                st.error("Username '{username}' already exists. Please choose a different username.")
+                st.error(f"Username '{username}' already exists. Please choose a different username.")
         else: 
             # Handle cases where no username is entered
             st.warning("Please enter a username to continue.")
@@ -152,7 +150,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         # }
         st.button("Sign Out", on_click=on_signout_click, key='A4')
         st.success(f"Welcome back, {st.session_state['user']}! Just a quick voice check to ensure it's you.")
-    st.write(user_state)
+    st.write(st.session_state.user_state)
     
     return user_state
         # mic_recorder(
