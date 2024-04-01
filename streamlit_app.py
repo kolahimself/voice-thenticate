@@ -166,9 +166,10 @@ def sign_in(auth_reqs: dict):
 
             # Section for verifying user's voice with SpeechBrain
             st.subheader("Verification Result")
+            st.write('Waiting')
 
-            if st.session_state.B_output is not None:
-                st.write('Waiting')
+            # if st.session_state.B_output is not None:
+            #     st.write('Waiting')
                 # # Download user audio from firebase for verification
                 # audio_a = download_audio(username, firebase_storage)
                 
