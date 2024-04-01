@@ -149,56 +149,32 @@ def user_authentication(reg_users):
         st.success(f"Welcome {st.session_state['user']}, Your voice is your key – let's confirm it's you.")
 
 
-def sign_in(auth_reqs: dict):
+def voice_auth_sign_in(firebase_storage):
     """
-    Performs the sign-in processes, then directly moves to voice verification
+    Voice verification for a signed in user
     """
-    # Unpack requirements
-    username = auth_reqs['username']
-    reg_usernames = auth_reqs['registered_usernames']
-    placeholders = auth_reqs['placeholders']
-    firebase_storage = auth_reqs['firebase_storage']
+    # Section for recording user's voice for verification
+    st.subheader("Verify Your Voice ID")
     
-    if username:
-        if username not in reg_usernames:
-            st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
+    mic_recorder(
+        start_prompt="Start recording ⏺️",
+        stop_prompt="Stop recording ⏹️",
+        just_once=False,  
+        use_container_width=False,
+        format="wav",
+        key="MC_I"
+    )
 
-        else:
-            # Clear existing layout elements
-            for placeholder in placeholders:
-                time.sleep(0.001)
-                placeholder.empty()
+    # Section for verifying user's voice with SpeechBrain
+    st.subheader("Verification Result")
 
-            # Section for recording user's voice for verification
-            st.subheader("Verify Your Voice ID")
-
-            # Download user audio from firebase for verification
-            st.write('Downloading...')
-            audio_a = download_audio(username, firebase_storage)
-            st.write('success!')
-
-            mic_recorder(
-                start_prompt="Start recording ⏺️",
-                stop_prompt="Stop recording ⏹️",
-                just_once=False,  
-                use_container_width=False,
-                format="wav",
-                key="B"
-            )
-
-            # Section for verifying user's voice with SpeechBrain
-            st.subheader("Verification Result")
-
-            if st.session_state.B_output is not None:
-                # Download user audio from firebase for verification
-                audio_a = download_audio(username, firebase_storage)
+    if st.session_state.MC_I_output is not None:
+        # Download user audio from firebase for verification
+        audio_a = download_audio(username=st.session_state["user"], firebase_storage)
                 
-                # Verification outcome
-                verify(audio_a, st.session_state.B_output["bytes"])
-            
-    else:
-        # Handle cases where no username is entered
-        st.warning("Please enter a username to continue.")
+        # Verification outcome
+        verify(audio_a, st.session_state.B_output["bytes"])
+        
 
 def sign_up(auth_reqs: dict):
     pass
@@ -233,14 +209,12 @@ def is_wav_file(audio):
         return False
 
 
-def save_audio_as_wav(audio_bytes, filename):
+def save_audio_as_wav(audio_bytes):
     """
     Saves the provided audio bytes as a temporary WAV file.
 
     Args:
         audio_bytes (bytes): Raw audio data in bytes format.
-        filename (str): Desired filename for the temporary WAV file.
-
     Returns:
         str: Path to the saved temporary WAV file.
     """
@@ -268,7 +242,7 @@ def voice_thenticate():
     )
 
 
-def verify(audio_a, audio_b) -> None:
+def verify(audio_a, audio_b):
     """
     Performs speaker verification between the two input audio recordings.
 
@@ -283,14 +257,14 @@ def verify(audio_a, audio_b) -> None:
         wav_path_a = audio_a
     else:
         # Save audio_a as temporary WAV if it's bytes
-        wav_path_a = save_audio_as_wav(audio_a, "audio_a.wav")
+        wav_path_a = save_audio_as_wav(audio_a)
 
     # Check if audio_b is a WAV file path
     if is_wav_file(audio_b):
         wav_path_b = audio_b
     else:
         # Save audio_b as temporary WAV if it's bytes
-        wav_path_b = save_audio_as_wav(audio_b, "audio_b.wav")
+        wav_path_b = save_audio_as_wav(audio_b)
 
     # Speech Verification
     verification = SpeakerRecognition.from_hparams(
@@ -328,7 +302,14 @@ if __name__ == "__main__":
 
     if 'user_state' not in st.session_state:
         st.session_state['user_state'] = None
-    # init_session_state(storage, registered_usernames)
 
     # Initial user authentication
     user_authentication(st.session_state.reg_users)
+
+    # Handle voice verification when user is signing in/up
+    if st.session_state.user_state == 'signing_in':
+        voice_auth_sign_in(st.session_state.storage)
+    elif st.session_state.user_state == 'signing_up':
+        pass
+    else:
+        pass
