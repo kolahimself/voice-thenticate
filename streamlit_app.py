@@ -159,7 +159,8 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
         
 
     elif st.session_state.page == 1:
-        del st.session_state.A2
+        for key in st.session_state.keys():
+            del st.session_state[key]
         st.write(st.session_state.page)
         placeholder.empty()
         
