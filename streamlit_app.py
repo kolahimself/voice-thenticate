@@ -89,16 +89,31 @@ def display_initial_ui(reg_usernames: list) -> str:
     # Entry text field
     username = st.text_input(label="Username", key='A1')
 
-    # Signing in
-    sign_in_button = st.button(
-        label="Sign In",
-        key="A2",
-        type="primary",
-        use_container_width=True
-    )
+    # Sign in & Sign up buttons
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        sign_in_button = st.button(
+            label="Sign In",
+            key="A2",
+            type="primary",
+            use_container_width=True
+        )
+
+    with col_right:
+        sign_up_button = st.button(
+            label="Sign Up",
+            key="A1",
+            type="primary",
+            use_container_width=True
+        )
 
     if sign_in_button:
         sign_in(username, reg_usernames)
+    elif sign_up_button:
+        sign_up()
+
+    
 
 def sign_in(username, reg_usernames):
     """
