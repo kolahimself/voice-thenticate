@@ -125,7 +125,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     #         st.write("This is the end")
     #         st.button("Restart",on_click=restart)
     display_initial_app_info()
-    st.write(st.session_state.page)
+    st.write('FFFFF')
     
     # placeholders = [st.empty() for _ in range(2)]
         
