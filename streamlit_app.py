@@ -136,6 +136,32 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
 
     if st.session_state.page == 0:
         username = placeholder.text_input(label="Username", key='A1')
+        col_left, col_right = st.columns(2)
+        with col_left:
+            sign_in_button = st.button(
+                label="Sign In",
+                key="A2",
+                type="primary",
+                use_container_width=True
+            )    
+        with col_right:
+            sign_up_button = st.button(
+                label="Sign Up",
+                key="A3",
+                type="primary",
+                use_container_width=True
+            )
+        if sign_in_button:
+            switch_to_sign_in_page()
+            # sign_in(auth_reqs)
+        elif sign_up_button:
+            switch_to_sign_up_page
+
+    elif st.session_state.page == 1:
+        placeholder.empty()
+
+    elif st.session_state.page == 2:
+        placeholder.empty()
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
         
