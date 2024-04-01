@@ -173,7 +173,7 @@ def voice_auth_sign_in(firebase_storage):
         audio_a = download_audio(username=st.session_state["user"], firebase_storage=firebase_storage)
                 
         # Verification outcome
-        verify(audio_a, st.session_state.B_output["bytes"])
+        verify(audio_a, st.session_state.MC_I_output["bytes"])
         
 
 def sign_up(auth_reqs: dict):
