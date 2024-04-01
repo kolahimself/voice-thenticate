@@ -135,6 +135,8 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     def on_login_click(user, reg_usernames):
         if user in reg_usernames:
             st.session_state["user"] = user
+    def on_logout_click():
+        st.session_state["user"] = None
             
     if st.session_state.setdefault("user", None) is None:
         username = st.text_input(label="Username", key='A1')
@@ -142,7 +144,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             st.error("Invalid user name or password.")
     else:
         st.success(f"Welcome, {st.session_state['user']}")
-        # st.button("Logout")
+        st.button("Logout", on_click=on_logout_click)
         mic_recorder(
                 start_prompt="Start recording ⏺️",
                 stop_prompt="Stop recording ⏹️",
@@ -151,6 +153,10 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
                 format="wav",
                 key="B"
             )
+        # Download user audio from firebase for verification
+        st.write('Downloading...')
+        audio_a = download_audio(st.session_state['user'], firebase_storage)
+        st.write('success!')
     
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
