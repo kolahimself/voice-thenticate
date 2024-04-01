@@ -103,7 +103,7 @@ def display_initial_ui(reg_usernames: list) -> str:
     with col_right:
         sign_up_button = st.button(
             label="Sign Up",
-            key="A1",
+            key="A3",
             type="primary",
             use_container_width=True
         )
