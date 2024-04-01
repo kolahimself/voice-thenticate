@@ -132,42 +132,13 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     display_initial_app_info()
     
     # placeholders = [st.empty() for _ in range(2)]
-    placeholder = st.empty()
-    col_left, col_right = st.columns(2)
-    with col_left:
-        sign_in_button = st.button(
-            label="Sign In",
-            key="A2",
-            type="primary",
-            use_container_width=True
-        )    
-    with col_right:
-        sign_up_button = st.button(
-            label="Sign Up",
-            key="A3",
-            type="primary",
-            use_container_width=True
-        )
-    if sign_in_button:
-        switch_to_sign_in_page()
-        # sign_in(auth_reqs)
-    elif sign_up_button:
-        switch_to_sign_up_page()
-
-    if st.session_state.page == 0:
-        username = placeholder.text_input(label="Username", key='A1')
-        
-
-    elif st.session_state.page == 1:
-        for key in st.session_state.keys():
-            del st.session_state[key]
-        st.write(st.session_state.page)
-        placeholder.empty()
-        
-
-    elif st.session_state.page == 2:
-        st.write(st.session_state.page)
-        placeholder.empty()
+    if st.session_state.setdefault("user", None) is None:
+        username = st.text_input(label="Username", key='A1')
+        if st.button(label="Login"):
+            st.error("Invalid user name or password.")
+    else:
+        st.success(f"Welcome, {James!")
+        st.button("Logout")
     # # Entry text field
     # username = placeholders[0].text_input(label="Username", key='A1')
         
