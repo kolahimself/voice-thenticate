@@ -1,6 +1,7 @@
 streamlit-mic-recorder
 speechbrain
 torchaudio==2.0.1
+sox
 ffmpeg
 PySoundFile
 pyrebase4
