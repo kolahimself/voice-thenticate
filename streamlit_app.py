@@ -6,10 +6,10 @@ It allows users to enroll their voice and then verify their identity with their 
 """
 
 import streamlit as st
+import tempfile
+import pyrebase
 from streamlit_mic_recorder import mic_recorder
 from speechbrain.inference.speaker import SpeakerRecognition
-import tempfile
-
 
 # **App Configuration**
 def set_page_config():
@@ -24,9 +24,59 @@ def set_page_config():
     st.markdown('''<style>.css-1egvi7u {margin-top: -3rem;}</style>''',
                 unsafe_allow_html=True)
 
-def auth():
+def init_firebase_storage(config) -> pyrebase.storage.Storage:
     """
-    Initial authentication, retrieves the username of the user.
+    Initializes a Firebase app and returns the storage object.
+
+    This function establishes a connection to Firebase using the provided configuration
+    and returns the storage object for interacting with Firebase Storage.
+
+    Args:
+        config (dict): A dictionary containing Firebase project configuration details.
+
+    Returns:
+        pyrebase.storage.Storage: The initialized Firebase storage object.
+    """
+    config = {
+        'apiKey': "AIzaSyA6tzaUZN8hVdDa75nioEDoXWiP-Gl8FVQ",
+        'authDomain': "voice-thenticate.firebaseapp.com",
+        'projectId': "voice-thenticate",
+        'storageBucket': "voice-thenticate.appspot.com",
+        'messagingSenderId': "583252692015",
+        'appId': "1:583252692015:web:9615861360f2bcc69a8ada",
+        'measurementId': "G-KR9Z6EHF56",
+        'serviceAccount': 'firebase-adminsdk-nsv2t@voice-thenticate.iam.gserviceaccount.com'
+    }
+
+    firebase = pyrebase.initialize_app(config)
+    storage = firebase.storage()
+    return storage
+    
+
+def fetch_firebase_data(storage) -> list:
+    """
+    Retrieves a list of file names within a specified Firebase Storage folder.
+
+    Args:
+        storage (pyrebase.storage.Storage): The initialized Firebase storage object.
+
+    Returns:
+        list: A list of file names within the specified folder, or an empty list if no files are found.
+    """
+    folder_path = '/reg_voices'
+    try:
+        files = storage.list_files(folder_path)
+        file_names = [file.name.split('.')[0] for file in files]
+        return file_names
+        
+    except Exception as e:
+        print(f"Error fetching data from Firebase: {e}")
+        return []  # Return an empty list on error
+
+
+def display_initial_ui() -> str:
+    """
+    Initial authentication page, retrieves the username of the user.
     Users can either sign in or sign up
     """
     set_page_config()  # Call page configuration function
@@ -154,4 +204,4 @@ def verify(audio_a, audio_b) -> None:
 if __name__ == "__main__":
     # Call main function
     # voice_thenticate()
-    username = auth()
+    username = display_initial_ui()
