@@ -95,7 +95,7 @@ def display_initial_ui(reg_usernames: list) -> str:
     placeholder.text('aarghh')
     display_initial_app_info()
     
-    Entry text field
+    # Entry text field
     username = st.text_input(label="Username", key='A1')
 
     # Sign in & Sign up buttons
