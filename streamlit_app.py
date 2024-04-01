@@ -96,7 +96,7 @@ def display_initial_ui(reg_usernames: list) -> str:
             st.write(f"⏳ {seconds} seconds have passed")
             time.sleep(1)
         st.write("✔️ 1 minute over!")
-        st.empty()
+    st.empty()
     # placeholder = st.empty()
     # display_initial_app_info(placeholder)
     # placeholder.empty()
