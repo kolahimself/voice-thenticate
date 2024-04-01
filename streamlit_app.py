@@ -168,11 +168,12 @@ def sign_in(auth_reqs: dict):
             st.subheader("Verification Result")
 
             if st.session_state.B_output is not None:
-                # Download user audio from firebase for verification
-                audio_a = download_audio(username, firebase_storage)
+                st.write('Waiting')
+                # # Download user audio from firebase for verification
+                # audio_a = download_audio(username, firebase_storage)
                 
-                # Verification outcome
-                verify(audio_a, st.session_state.B_output["bytes"])
+                # # Verification outcome
+                # verify(audio_a, st.session_state.B_output["bytes"])
             
     else:
         # Handle cases where no username is entered
