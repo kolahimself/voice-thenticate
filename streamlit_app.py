@@ -106,7 +106,7 @@ def display_initial_ui(reg_usernames: list) -> str:
                 label="Sign In",
                 key="A2",
                 type="primary",
-                use_container_width=True
+                use_container_width=False
             )
 
     # with col_right:
