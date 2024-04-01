@@ -92,6 +92,7 @@ def display_initial_ui(reg_usernames: list) -> str:
     """
     placeholder = st.empty()
     display_initial_app_info(placeholder)
+    placeholder.empty()
     
     # Entry text field
     # username = st.text_input(label="Username", key='A1')
