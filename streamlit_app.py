@@ -109,7 +109,7 @@ def display_initial_ui(reg_usernames: list) -> str:
         )
 
         with col_right:
-            sign_up_button = placeholders[2].button(
+            sign_up_button = placeholders[3].button(
                 label="Sign Up",
                 key="A3",
                 type="primary",
