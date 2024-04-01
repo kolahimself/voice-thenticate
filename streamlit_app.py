@@ -91,15 +91,17 @@ def display_initial_ui(reg_usernames: list) -> str:
         reg_usernames: List containing all registered voices
     """
     display_initial_app_info()
+
+    placeholder = st.empty()
     
     # Entry text field
-    username = st.text_input(label="Username", key='A1')
+    username = placeholder.text_input(label="Username", key='A1')
 
     # Sign in & Sign up buttons
-    col_left, col_right = st.columns(2)
+    col_left, col_right = placeholder.columns(2)
 
     with col_left:
-        sign_in_button = st.button(
+        sign_in_button = placeholder.button(
             label="Sign In",
             key="A2",
             type="primary",
@@ -107,7 +109,7 @@ def display_initial_ui(reg_usernames: list) -> str:
         )
 
     with col_right:
-        sign_up_button = st.button(
+        sign_up_button = placeholder.button(
             label="Sign Up",
             key="A3",
             type="primary",
@@ -115,24 +117,22 @@ def display_initial_ui(reg_usernames: list) -> str:
         )
 
     if sign_in_button:
-        sign_in(username, reg_usernames)
+        sign_in(username, reg_usernames, placeholder)
         
     elif sign_up_button:
         sign_up()
     
 
-def sign_in(username, reg_usernames):
+def sign_in(username, reg_usernames, placeholder):
     """
     Performs the sign-in processes, then directly moves to voice verification
     """
-    st.write(reg_usernames)
     if username:
         if username not in reg_usernames:
             st.error(f"Username '{username}' is not found. Please check for existing accounts or create a new one.")
 
         else:
             # Clear existing layout elements
-            placeholder = st.empty()
             placeholder.empty()
             
     else:
@@ -229,7 +229,6 @@ if __name__ == "__main__":
     
     # Connect to firebase and get reference to storage
     storage = init_firebase_storage()
-    st.write(str(storage))
 
     # Retrieve registered usernames
     registered_usernames = fetch_firebase_data(storage)
