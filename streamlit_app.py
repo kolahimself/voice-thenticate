@@ -113,7 +113,7 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
             col_left, col_right = st.columns(2)
             with col_left:
                 sign_in_button = st.button(label="Sign In",
-                         on_click=on_login_click, 
+                         on_click=on_sign_in_click, 
                          args=(username, reg_usernames),
                          key="A2",
                          type="primary",
