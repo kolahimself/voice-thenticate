@@ -155,27 +155,24 @@ def sign_in(auth_reqs: dict):
             # Section for recording user's voice for verification
             st.subheader("Verify Your Voice ID")
 
-            mic_recorder(
-                start_prompt="Start recording ⏺️",
-                stop_prompt="Stop recording ⏹️",
-                just_once=False,  
-                use_container_width=False,
-                format="wav",
-                key="B"
-            )
+            # mic_recorder(
+            #     start_prompt="Start recording ⏺️",
+            #     stop_prompt="Stop recording ⏹️",
+            #     just_once=False,  
+            #     use_container_width=False,
+            #     format="wav",
+            #     key="B"
+            # )
 
-            # Section for verifying user's voice with SpeechBrain
-            st.subheader("Verification Result")
+            # # Section for verifying user's voice with SpeechBrain
+            # st.subheader("Verification Result")
 
-            if st.session_state.B_output is not None:
-                st.write('Waiting')
-                time.sleep(100000000000000)
-                st.write('Waiting')
-                # # Download user audio from firebase for verification
-                # audio_a = download_audio(username, firebase_storage)
+            # if st.session_state.B_output is not None:
+            #     # Download user audio from firebase for verification
+            #     audio_a = download_audio(username, firebase_storage)
                 
-                # # Verification outcome
-                # verify(audio_a, st.session_state.B_output["bytes"])
+            #     # Verification outcome
+            #     verify(audio_a, st.session_state.B_output["bytes"])
             
     else:
         # Handle cases where no username is entered
