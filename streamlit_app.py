@@ -92,6 +92,10 @@ def display_initial_ui(reg_usernames: list, firebase_storage) -> str:
     Args:
         reg_usernames: List containing all registered voices
     """
+    # Initial page state ("initial", "sign_in", or "sign_up")
+    if "page" not in st.session_state:
+        st.session_state.page = "initial"  
+        st.write(session_state.page)
 
     # if "page" not in st.session_state:
     #     st.session_state.page = 0
@@ -335,11 +339,6 @@ if __name__ == "__main__":
 
     # Retrieve registered usernames
     registered_usernames = fetch_firebase_data(storage)
-
-    # Initial page state ("initial", "sign_in", or "sign_up")
-    if "page" not in st.session_state:
-        st.session_state.page = "initial"  
-        st.write(session_state.page)
 
     # Display initial user interface
     display_initial_ui(registered_usernames, storage)
