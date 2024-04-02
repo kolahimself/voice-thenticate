@@ -319,12 +319,9 @@ if __name__ == "__main__":
     # Connect to firebase and get reference to storage
     storage = init_firebase_storage()
 
-    # Retrieve registered usernames
-    registered_usernames = fetch_firebase_data(storage)
-
     # Initialize session state containing context imformation in the app   
     if 'reg_users' not in st.session_state:
-        st.session_state['reg_users'] = registered_usernames
+        st.session_state['reg_users'] = fetch_firebase_data(storage)
         
     if 'storage' not in st.session_state:
         st.session_state['storage'] = storage
