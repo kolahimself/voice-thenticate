@@ -3,8 +3,9 @@ This Streamlit app demonstrates speaker verification using [SpeechBrain](https:/
 
 ## How to Use
 -  Visit the streamlit app: https://voice-thenticate-fmtvslhn5uxhfnctktr9u2.streamlit.app/
+-  Sign In or Sign Up with your username
 -  Under `Set Up Your Voice ID`, record a short sample of your voice.
-- Under `Unlock with Your Voice`, record another voice sample.
+- Under `Verify Your Voice ID`, record another voice sample.
    
 The app will verify your voice and display the result (success or failure).
 
