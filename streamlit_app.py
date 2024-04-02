@@ -279,17 +279,17 @@ def verify(audio_a, audio_b):
     """
     # Check if audio_a is a WAV file path
     if is_wav_file(audio_a):
-        wav_path_a = tempfile.gettempdir() + audio_a
+        wav_path_a = audio_a
     else:
         # Save audio_a as temporary WAV if it's bytes
-        wav_path_a = tempfile.gettempdir() + save_audio_as_wav(audio_a)
+        wav_path_a = save_audio_as_wav(audio_a)
 
     # Check if audio_b is a WAV file path
     if is_wav_file(audio_b):
-        wav_path_b = tempfile.gettempdir() + audio_b
+        wav_path_b = audio_b
     else:
         # Save audio_b as temporary WAV if it's bytes
-        wav_path_b = tempfile.gettempdir() + save_audio_as_wav(audio_b)
+        wav_path_b = save_audio_as_wav(audio_b)
 
     # Speech Verification
     verification = SpeakerRecognition.from_hparams(
