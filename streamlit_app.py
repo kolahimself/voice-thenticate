@@ -228,9 +228,9 @@ def download_audio(username, firebase_storage):
     Downloads users' audio from firebase 
     """
     path_cloud = str(username) + ".wav"
-    audio_data = firebase_storage.child(path_cloud).download()
+    firebase_storage.child(path_cloud).download(filename=path_cloud, path=tempfile.gettempdir())
 
-    return audio_data
+    return tempfile.gettempdir() + path_cloud
 
 
 def is_wav_file(audio):
