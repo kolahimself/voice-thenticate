@@ -157,14 +157,15 @@ def voice_auth_sign_in(firebase_storage):
         format="wav",
         key="MC_I"
     )
-
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verification Result")
 
     if st.session_state.MC_I_output is not None:
+        # Display recording
+        st.audio(data=st.session_state.MC_I_output["bytes"], format="audio/wav")
+        
         # Download user audio from firebase for verification
         audio_a = download_audio(username=st.session_state["user"], firebase_storage=firebase_storage)
-        st.write(audio_a)
                 
         # Verification outcome
         verify(audio_a, st.session_state.MC_I_output["bytes"])
@@ -185,8 +186,11 @@ def voice_auth_sign_up(firebase_storage):
         format="wav",
         key="MIC_XC"
     )
-
+    
     if st.session_state.MIC_XC_output is not None:
+        # Display recording
+        st.audio(data=st.session_state.MIC_XC_output["bytes"], format="audio/wav")
+        
         # Convert owner recording to .wav
         wav_for_upload = save_audio_as_wav(st.session_state.MIC_XC_output["bytes"])
 
@@ -206,6 +210,9 @@ def voice_auth_sign_up(firebase_storage):
         format="wav",
         key="MXC_CG"
     )
+    # Display recording
+    if st.session_state.MXC_CG_output is not None:
+        st.audio(data=st.session_state.MXC_CG_output["bytes"], format="audio/wav")
 
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verification Result")
@@ -227,11 +234,10 @@ def download_audio(username, firebase_storage):
     """
     Downloads users' audio from firebase 
     """
-    tempfile.mkdtemp()
-    path_cloud = str(username) + ".wav"
-    firebase_storage.child(path_cloud).download(filename=path_cloud, path=path_cloud)
+    audio_path = str(username) + ".wav"
+    firebase_storage.child(audio_path).download(filename=audio_path, path=audio_path)
 
-    return path_cloud
+    return audio_path
 
 
 def is_wav_file(audio):
