@@ -339,3 +339,6 @@ if __name__ == "__main__":
         voice_auth_sign_up(st.session_state.storage)
     else:
         pass
+        
+    # Update reg users
+    st.session_state['reg_users'] = fetch_firebase_data(storage)
