@@ -228,13 +228,9 @@ def download_audio(username, firebase_storage):
     Downloads users' audio from firebase 
     """
     path_cloud = str(username) + ".wav"
-    
-    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_file:
-        # Download Firebase audio to the temporary file
-        firebase_storage.child(path_cloud).download(filename=temp_file.name, path=temp_file.name)
-        wav_path = temp_file.name  # Store the temporary path
+    audio_data = firebase_storage.child(path_cloud).download()
 
-    return wav_path
+    return audio_data
 
 
 def is_wav_file(audio):
@@ -296,8 +292,7 @@ def verify(audio_a, audio_b):
         source="speechbrain/spkrec-ecapa-voxceleb",
         savedir="pretrained_models/spkrec-ecapa-voxceleb"
     )
-    st.write(wav_path_a, wav_path_b)
-    score, prediction = verification.verify_files(wav_path_b, wav_path_b)
+    score, prediction = verification.verify_files(wav_path_a, wav_path_b)
 
     # Convert tensor prediction to boolean for conditional logic
     prediction_bool = prediction.item() == 1  # True if prediction is tensor([True])
