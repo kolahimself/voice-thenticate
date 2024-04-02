@@ -281,21 +281,20 @@ def verify(audio_a, audio_b):
         wav_path_a = audio_a
     else:
         # Save audio_a as temporary WAV if it's bytes
-        wav_path_a = save_audio_as_wav(audio_a)
+        wav_path_a = '/' + save_audio_as_wav(audio_a)
 
     # Check if audio_b is a WAV file path
     if is_wav_file(audio_b):
         wav_path_b = audio_b
     else:
         # Save audio_b as temporary WAV if it's bytes
-        wav_path_b = save_audio_as_wav(audio_b)
+        wav_path_b = '/' + save_audio_as_wav(audio_b)
 
     # Speech Verification
     verification = SpeakerRecognition.from_hparams(
         source="speechbrain/spkrec-ecapa-voxceleb",
         savedir="pretrained_models/spkrec-ecapa-voxceleb"
     )
-    st.audio(wav_path_b)
     score, prediction = verification.verify_files(wav_path_a, wav_path_b)
 
     # Convert tensor prediction to boolean for conditional logic
