@@ -164,6 +164,7 @@ def voice_auth_sign_in(firebase_storage):
     if st.session_state.MC_I_output is not None:
         # Download user audio from firebase for verification
         audio_a = download_audio(username=st.session_state["user"], firebase_storage=firebase_storage)
+        st.write(audio_a)
                 
         # Verification outcome
         verify(audio_a, st.session_state.MC_I_output["bytes"])
