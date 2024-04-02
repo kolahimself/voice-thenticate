@@ -230,7 +230,7 @@ def download_audio(username, firebase_storage):
     path_cloud = str(username) + ".wav"
     firebase_storage.child(path_cloud).download(filename=path_cloud, path=tempfile.gettempdir())
 
-    return tempfile.gettempdir() + path_cloud
+    return tempfile.gettempdir() + '/' + path_cloud
 
 
 def is_wav_file(audio):
