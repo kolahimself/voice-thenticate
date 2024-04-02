@@ -157,13 +157,14 @@ def voice_auth_sign_in(firebase_storage):
         format="wav",
         key="MC_I"
     )
+    # Display recording
+    if st.session_state.MC_I_output is not None:
+        st.audio(data=st.session_state.MC_I_output["bytes"], format="audio/wav")
+        
     # Section for verifying user's voice with SpeechBrain
     st.subheader("Verification Result")
 
-    if st.session_state.MC_I_output is not None:
-        # Display recording
-        st.audio(data=st.session_state.MC_I_output["bytes"], format="audio/wav")
-        
+    if st.session_state.MC_I_output is not None:        
         # Download user audio from firebase for verification
         audio_a = download_audio(username=st.session_state["user"], firebase_storage=firebase_storage)
                 
