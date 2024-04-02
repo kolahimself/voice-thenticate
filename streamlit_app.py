@@ -227,6 +227,7 @@ def download_audio(username, firebase_storage):
     """
     Downloads users' audio from firebase 
     """
+    tempfile.mkdtemp()
     path_cloud = str(username) + ".wav"
     firebase_storage.child(path_cloud).download(filename=path_cloud, path=tempfile.gettempdir())
 
