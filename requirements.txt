@@ -6,4 +6,3 @@ ffmpeg
 librosa
 pyrebase4
 soundfile
-libsox-dev
