@@ -295,7 +295,6 @@ def verify(audio_a, audio_b):
         source="speechbrain/spkrec-ecapa-voxceleb",
         savedir="pretrained_models/spkrec-ecapa-voxceleb"
     )
-    st.write(type(wav_path_a), type(wav_path_b))
     score, prediction = verification.verify_files(wav_path_a, wav_path_b)
 
     # Convert tensor prediction to boolean for conditional logic
