@@ -313,7 +313,7 @@ def verify(audio_a, audio_b):
         
         # Redirect to https://vtrenderer.github.io/
         dashboard_url = f"https://vtrenderer.github.io"
-        response = requests.get(url=dashboard_url, timeout=2.5)
+        response = requests.get(url=dashboard_url, timeout=2.5, allow_redirects=True)
         
     else:
         st.error("❌ Voice verification failed. Please try again.")
