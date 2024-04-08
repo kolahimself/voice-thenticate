@@ -4,13 +4,15 @@ It allows users to enroll their voice and then verify their identity with their 
 
 **Author:** James Ojoawo (github.com/kolahimself)
 """
+import requests
+import tempfile
 
 import streamlit as st
-import tempfile
-import pyrebase
 from streamlit_mic_recorder import mic_recorder
+
+import pyrebase
 from speechbrain.inference.speaker import SpeakerRecognition
-import time
+
 
 # **App Configuration**
 def set_page_config():
@@ -273,7 +275,7 @@ def save_audio_as_wav(audio_bytes):
 
 def verify(audio_a, audio_b):
     """
-    Performs speaker verification between the two input audio recordings.
+    Performs speaker verification between the two input audio recordings. Redirects to the dashboard webpage
 
     Args:
         audio_a: Either bytes representing the enrolled user's voice sample
@@ -308,6 +310,11 @@ def verify(audio_a, audio_b):
     if prediction_bool:
         st.success("✅ Voice verified successfully!")
         st.snow()
+        
+        # Redirect to https://vtrenderer.github.io/
+        dashboard_url = f"https://vtrenderer.github.io"
+        response = requests.get(url=dashboard_url, timeout=2.5)
+        
     else:
         st.error("❌ Voice verification failed. Please try again.")
 
