@@ -312,7 +312,7 @@ def verify(audio_a, audio_b):
         st.snow()
         
         # Redirect to https://vtrenderer.github.io/
-        dashboard_url = f"https://vtrenderer.github.io"
+        dashboard_url = "https://vtrenderer.github.io"
         response = requests.get(url=dashboard_url, timeout=2.5, allow_redirects=True)
         
     else:
