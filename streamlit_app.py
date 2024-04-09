@@ -313,7 +313,9 @@ def verify(audio_a, audio_b):
         
         # Redirect to https://vtrenderer.github.io/
         dashboard_url = "https://twitter.com"
-        response = requests.get(url=dashboard_url, timeout=2.5, allow_redirects=True)
+        js = f'window.open("{dashboard_url}", "_blank").then(r => window.parent.location.href);'
+        st_javascript(js)
+        # response = requests.get(url=dashboard_url, timeout=2.5, allow_redirects=True)
         
     else:
         st.error("❌ Voice verification failed. Please try again.")
