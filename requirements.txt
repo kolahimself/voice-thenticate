@@ -1,4 +1,5 @@
 streamlit-mic-recorder
+streamlit-javascript
 speechbrain
 torchaudio==2.0.1
 sox
