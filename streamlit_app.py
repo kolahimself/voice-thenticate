@@ -313,7 +313,7 @@ def verify(audio_a, audio_b):
         st.snow()
         
         # Redirect to https://vtrenderer.github.io/
-        dashboard_url = "https://twitter.com"
+        dashboard_url = dashboard_url = f"https://vtrenderer.github.io/?username={st.session_state['user']}"
         js = f'window.open("{dashboard_url}", "_blank").then(r => window.parent.location.href);'
         st_javascript(js)
         # response = requests.get(url=dashboard_url, timeout=2.5, allow_redirects=True)
