@@ -7,6 +7,6 @@ This Streamlit app demonstrates speaker verification using [SpeechBrain](https:/
 -  Under `Set Up Your Voice ID`, record a short sample of your voice.
 - Under `Verify Your Voice ID`, record another voice sample.
    
-The app will verify your voice and display the result (success or failure).
+The app will verify your voice and redirect to https://vtrenderer.github.io/ upon success.
 
 Note that this is a basic demonstration and may not be suitable for high-security applications.
