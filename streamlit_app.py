@@ -268,7 +268,7 @@ def upload_json(user_information: dict, firebase_storage):
     tfile.flush()
     
     # Upload to firebase storage
-    path_on_cloud = str(username) + ".json"
+    path_on_cloud = str(st.session_state["user"]) + ".json"
     firebase_storage.child(path_on_cloud).put(tfile.name)
 
 
