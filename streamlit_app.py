@@ -4,8 +4,8 @@ It allows users to enroll their voice and then verify their identity with their 
 
 **Author:** James Ojoawo (github.com/kolahimself)
 """
-import requests
 import tempfile
+import json
 
 import streamlit as st
 from streamlit_mic_recorder import mic_recorder
@@ -173,6 +173,9 @@ def voice_auth_sign_in(firebase_storage):
                 
         # Verification outcome
         verify(audio_a, st.session_state.MC_I_output["bytes"])
+
+        # Redirect to dashboard
+        redirect()
         
 
 def voice_auth_sign_up(firebase_storage):
@@ -218,12 +221,33 @@ def voice_auth_sign_up(firebase_storage):
     if st.session_state.MXC_CG_output is not None:
         st.audio(data=st.session_state.MXC_CG_output["bytes"], format="audio/wav")
 
-    # Section for verifying user's voice with SpeechBrain
+    # Section for retrieving verifying user's voice with SpeechBrain
     st.subheader("Verification Result")
 
     if st.session_state.MIC_XC_output is not None and st.session_state.MXC_CG_output is not None:
         # Verification outcome
         verify(st.session_state.MIC_XC_output["bytes"], st.session_state.MXC_CG_output["bytes"])
+
+        with st.form("my_form"):
+            # Section for registering user info 
+            st.subheader("Complete Registration details")
+            
+            # Recieve info from users
+            user_info = {}
+            user_info["full_name"] = st.text_input(label="Full Name", key='UI1')
+            user_info["date_of_birth"] = st.text_input(label="Date of Birth", key='UI2')
+            user_info["course"] = st.text_input(label="Course Taken", key='UI3')
+            user_info["email"] = st.text_input(label="Email Address", key='UI4')
+            user_info["address"] = st.text_input(label="Address", key='UI5')
+
+            # Save info
+            submitted = st.form_submit_button(label="Submit", type="primary")
+            if submitted:
+                # Upload user info to firebase storage
+                upload_json(user_info, firebase_storage)
+        
+                # Redirect to dashboard
+                redirect()
 
 
 def upload_audio(audio_file, username, firebase_storage):
@@ -232,6 +256,20 @@ def upload_audio(audio_file, username, firebase_storage):
     """
     path_on_cloud = str(username) + ".wav"
     firebase_storage.child(path_on_cloud).put(audio_file)
+
+
+def upload_json(user_information: dict, firebase_storage):
+    """
+    Uploads the user data to firebase storage
+    """
+    # Covert dict to json, save to tmp
+    tfile = tempfile.NamedTemporaryFile(mode="w+", delete=False)
+    json.dump(user_information, tfile)
+    tfile.flush()
+    
+    # Upload to firebase storage
+    path_on_cloud = str(username) + ".json"
+    firebase_storage.child(path_on_cloud).put(tfile.name)
 
 
 def download_audio(username, firebase_storage):
@@ -312,14 +350,16 @@ def verify(audio_a, audio_b):
         st.success("✅ Voice verified successfully!")
         st.snow()
         
-        # Redirect to https://vtrenderer.github.io/
-        dashboard_url = dashboard_url = f"https://vtrenderer.github.io/?username={st.session_state['user']}"
-        js = f'window.open("{dashboard_url}", "_blank").then(r => window.parent.location.href);'
-        st_javascript(js)
-        # response = requests.get(url=dashboard_url, timeout=2.5, allow_redirects=True)
-        
     else:
         st.error("❌ Voice verification failed. Please try again.")
+
+def redirect(): 
+    """
+    Redirects to https://vtrenderer.github.io/
+    """
+    dashboard_url = f"https://vtrenderer.github.io/?username={st.session_state['user']}"
+    js = f'window.open("{dashboard_url}", "_blank").then(r => window.parent.location.href);'
+    st_javascript(js)
 
 
 if __name__ == "__main__":
