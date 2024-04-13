@@ -197,14 +197,6 @@ def voice_auth_sign_up(firebase_storage):
     if st.session_state.MIC_XC_output is not None:
         # Display recording
         st.audio(data=st.session_state.MIC_XC_output["bytes"], format="audio/wav")
-        
-        # Convert owner recording to .wav
-        wav_for_upload = save_audio_as_wav(st.session_state.MIC_XC_output["bytes"])
-
-        # Upload the owner's voice recording to firebase
-        upload_audio(audio_file=wav_for_upload,
-                     username=st.session_state["user"],
-                     firebase_storage=firebase_storage)
 
     # Section for recording user's voice for verification
     st.subheader("Verify Your Voice ID")
@@ -243,6 +235,14 @@ def voice_auth_sign_up(firebase_storage):
             # Save info
             submitted = st.form_submit_button(label="Submit", type="primary")
             if submitted:
+                # Convert owner recording to .wav
+                wav_for_upload = save_audio_as_wav(st.session_state.MIC_XC_output["bytes"])
+
+                # Upload the owner's voice recording to firebase
+                upload_audio(audio_file=wav_for_upload,
+                             username=st.session_state["user"],
+                             firebase_storage=firebase_storage)
+                
                 # Upload user info to firebase storage
                 upload_json(user_info, firebase_storage)
         
