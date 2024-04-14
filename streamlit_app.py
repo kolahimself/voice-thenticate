@@ -245,7 +245,6 @@ def voice_auth_sign_up(firebase_storage, db):
                 
                 # Upload user info to firebase storage
                 # upload_json(user_info, firebase_storage)
-                db.child(str(st.session_state["user"]))
                 db.child(str(st.session_state["user"])).set(user_info)
         
                 # Redirect to dashboard
