@@ -245,9 +245,9 @@ def voice_auth_sign_up(firebase_storage, db):
                 
                 # Upload user info to firebase storage
                 # upload_json(user_info, firebase_storage)
-                ref = db.reference("/")
+                db.child()
                 for key, value in user_info.items():
-                    db.reference("/").update({key: value})
+                    db.child().push({key: value})
         
                 # Redirect to dashboard
                 redirect()
