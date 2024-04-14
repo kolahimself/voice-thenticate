@@ -53,7 +53,7 @@ def init_firebase_storage() -> pyrebase.pyrebase.Storage:
         'apiKey': "AIzaSyA6tzaUZN8hVdDa75nioEDoXWiP-Gl8FVQ",
         'authDomain': "voice-thenticate.firebaseapp.com",
         'projectId': "voice-thenticate",
-        "databaseURL": "https://voice-thenticate.firebaseio.com",
+        "databaseURL": "https://voice-thenticate-default-rtdb.firebaseio.com/",
         'storageBucket': "voice-thenticate.appspot.com",
         'messagingSenderId': "583252692015",
         'appId': "1:583252692015:web:9615861360f2bcc69a8ada",
@@ -63,7 +63,8 @@ def init_firebase_storage() -> pyrebase.pyrebase.Storage:
 
     firebase = pyrebase.initialize_app(config)
     storage = firebase.storage()
-    return storage
+    db = firebase.database()
+    return storage, db
     
 
 def fetch_firebase_data(storage) -> list:
@@ -145,7 +146,7 @@ def user_authentication(reg_users):
         st.success(f"Welcome {st.session_state['user']}, Your voice is your key – let's confirm it's you.")
 
 
-def voice_auth_sign_in(firebase_storage):
+def voice_auth_sign_in(firebase_storage, db):
     """
     Voice verification for a signed in user
     """
@@ -175,7 +176,7 @@ def voice_auth_sign_in(firebase_storage):
         verify(audio_a, st.session_state.MC_I_output["bytes"], mode="sign_in")
         
 
-def voice_auth_sign_up(firebase_storage):
+def voice_auth_sign_up(firebase_storage, db):
     """
     Voice verification for a new user
     """
@@ -223,11 +224,13 @@ def voice_auth_sign_up(firebase_storage):
             
             # Recieve info from users
             user_info = {}
+            user_info["username"] = st.session_state['user']
             user_info["full_name"] = st.text_input(label="Full Name", key='UI1')
             user_info["date_of_birth"] = st.text_input(label="Date of Birth", key='UI2')
             user_info["course"] = st.text_input(label="Course Taken", key='UI3')
             user_info["email"] = st.text_input(label="Email Address", key='UI4')
             user_info["address"] = st.text_input(label="Address", key='UI5')
+            
 
             # Save info
             submitted = st.form_submit_button(label="Submit", type="primary")
@@ -241,7 +244,9 @@ def voice_auth_sign_up(firebase_storage):
                              firebase_storage=firebase_storage)
                 
                 # Upload user info to firebase storage
-                upload_json(user_info, firebase_storage)
+                # upload_json(user_info, firebase_storage)
+                for key, value in user_info.items():
+                    db.reference("/").update({key: value})
         
                 # Redirect to dashboard
                 redirect()
@@ -367,7 +372,7 @@ if __name__ == "__main__":
     set_page_config()  
     
     # Connect to firebase and get reference to storage
-    storage = init_firebase_storage()
+    storage, db = init_firebase_storage()
 
     # Initialize session state containing context imformation in the app   
     if 'reg_users' not in st.session_state:
@@ -375,6 +380,9 @@ if __name__ == "__main__":
         
     if 'storage' not in st.session_state:
         st.session_state['storage'] = storage
+        
+    if 'db' not in st.session_state:
+        st.session_state['db'] = db
 
     if 'user_state' not in st.session_state:
         st.session_state['user_state'] = None
@@ -384,9 +392,9 @@ if __name__ == "__main__":
 
     # Handle voice verification when user is signing in/up
     if st.session_state.user_state == 'signing_in':
-        voice_auth_sign_in(st.session_state.storage)
+        voice_auth_sign_in(st.session_state.storage, st.session_state.db)
     elif st.session_state.user_state == 'signing_up':
-        voice_auth_sign_up(st.session_state.storage)
+        voice_auth_sign_up(st.session_state.storage, st.session_state.db)
     else:
         pass
         
