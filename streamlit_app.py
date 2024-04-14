@@ -172,10 +172,7 @@ def voice_auth_sign_in(firebase_storage):
         audio_a = download_audio(username=st.session_state["user"], firebase_storage=firebase_storage)
                 
         # Verification outcome
-        verify(audio_a, st.session_state.MC_I_output["bytes"])
-
-        # Redirect to dashboard
-        redirect()
+        verify(audio_a, st.session_state.MC_I_output["bytes"], mode="sign_in")
         
 
 def voice_auth_sign_up(firebase_storage):
@@ -312,7 +309,7 @@ def save_audio_as_wav(audio_bytes):
         return temp_file.name
 
 
-def verify(audio_a, audio_b):
+def verify(audio_a, audio_b, mode='sign_up'):
     """
     Performs speaker verification between the two input audio recordings. Redirects to the dashboard webpage
 
@@ -321,6 +318,7 @@ def verify(audio_a, audio_b):
                 or the path to a WAV file containing the sample.
         audio_b: Either bytes representing the user's voice for verification
                 or the path to a WAV file containing the user's voice.
+        mode: 'sign_up' or 'sign_in'
     """
     # Check if audio_a is a WAV file path
     if is_wav_file(audio_a):
@@ -349,6 +347,8 @@ def verify(audio_a, audio_b):
     if prediction_bool:
         st.success("✅ Voice verified successfully!")
         st.snow()
+        if mode == 'sign_in':
+            redirect()
         
     else:
         st.error("❌ Voice verification failed. Please try again.")
